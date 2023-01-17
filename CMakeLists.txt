@@ -18,6 +18,10 @@ list(APPEND EXTRA_LIBS ${GLFW_LIBRARY_DIRS})
 add_subdirectory(vendor/glad)
 list(APPEND EXTRA_LIBS glad)
 
+#IMGUI
+add_subdirectory(vendor/imgui)
+list(APPEND EXTRA_LIBS imgui)
+
 set(SOURCE_FILES src/main.cpp)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 target_include_directories(${PROJECT_NAME} PUBLIC ${EXTRA_INCLUDES})
