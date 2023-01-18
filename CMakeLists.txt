@@ -22,7 +22,7 @@ list(APPEND EXTRA_LIBS glad)
 add_subdirectory(vendor/imgui)
 list(APPEND EXTRA_LIBS imgui)
 
-set(SOURCE_FILES src/main.cpp)
+set(SOURCE_FILES src/Showcase.cpp src/Showcase.h)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 target_include_directories(${PROJECT_NAME} PUBLIC ${EXTRA_INCLUDES})
 target_link_libraries(${PROJECT_NAME} PUBLIC ${EXTRA_LIBS} glfw3 X11 Xxf86vm Xrandr pthread Xi dl Xinerama Xcursor)
