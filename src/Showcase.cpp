@@ -5,9 +5,11 @@ void ShowcaseApplication::Run()
 {
     //If GLFW fails to create a window, then exit the app.
     if(!Init()) return;
-
     // Initialize ImGui Context.
     InitImGui();
+    // Initialize Lectures
+    Lectures::CreateInstance();
+    Lectures::m_Instance->m_Lectures.push_back(new HelloWindow());
     // Main Render Loop.        
     RenderLoop();
     // Free the memory allocations.
@@ -33,8 +35,14 @@ bool ShowcaseApplication::Init()
         return false;
     }
 
-    //Make window the current GLFW context.
+    // Make window the current GLFW context.
     glfwMakeContextCurrent(m_Window);
+
+    // Set Mouse Button Callback
+    GLFWCallbackWrapper::SetApplication(this);
+    glfwSetMouseButtonCallback(m_Window, GLFWCallbackWrapper::MouseButtonCallback);
+    // Set Key Callback
+    glfwSetKeyCallback(m_Window, GLFWCallbackWrapper::KeyCallback);
 
     if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
@@ -130,7 +138,7 @@ void ShowcaseApplication::SetCustomStyle()
 	style.ChildBorderSize  = 1;
 	style.PopupBorderSize  = 1;
 	style.FrameBorderSize  = 0; 
-
+    
 	style.WindowRounding    = 3;
 	style.ChildRounding     = 3;
 	style.FrameRounding     = 3;
@@ -145,58 +153,17 @@ void ShowcaseApplication::RenderLoop()
     {
         // Poll and handle events (inputs, window resize, etc.)
         glfwPollEvents();
-        // Process Custom Input for Keyboard shortcuts.
-        ProcessInput();
         // Start New ImGui Frame.
         ImGuiBeginFrame();
         // Render ImGui.
         ImGuiRender();
+        // Render Current Lecture.
+        Lectures::m_Instance->RenderLecture(m_CurrentLectureIndex, m_SettingsVisible);
         // Show the output of ImGui.
         ImGuiEndFrame();
         // Swap Buffers!
         glfwSwapBuffers(m_Window);
     }
-}
-
-/// @brief Responsible for the Functionality of Keyboard Shortcuts.
-void ShowcaseApplication::ProcessInput()
-{
-    if(m_PressedOnce)
-    {
-        m_FramesPassedSinceKeyPressed++;
-        if(m_FramesPassedSinceKeyPressed > 15){  m_PressedOnce = false; m_FramesPassedSinceKeyPressed = 0;}
-        else return;
-    }
-    
-    if(glfwGetKey(m_Window, GLFW_KEY_F) == GLFW_REPEAT)
-        std::cout << "Repeating\n";
-    if(glfwGetKey(m_Window, GLFW_KEY_F) == GLFW_PRESS)
-    {
-        // Pressed F
-        // Enter/Exit Fullscreen.
-        Fullscreen();
-    }
- 
-    if(glfwGetMouseButton(m_Window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
-        SwitchCursorLock();
-
-    if(glfwGetKey(m_Window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS || 
-       glfwGetKey(m_Window, GLFW_KEY_RIGHT_CONTROL) == GLFW_PRESS)
-    {
-        // Ctrl Pressed!
-        if(glfwGetKey(m_Window, GLFW_KEY_F) == GLFW_KEY_DOWN) // Ctrl + F
-            ShowHideFPS();
-        if(glfwGetKey(m_Window, GLFW_KEY_H) == GLFW_PRESS) // Ctrl + H
-            ShowHideMenu();
-        if(glfwGetKey(m_Window, GLFW_KEY_S) == GLFW_PRESS) // Ctrl + S
-            ShowHideSettings();
-        if(glfwGetKey(m_Window, GLFW_KEY_I) == GLFW_PRESS) // Ctrl + I
-            OpenCurrentLecture();
-        if(glfwGetKey(m_Window, GLFW_KEY_Q) == GLFW_PRESS) // Ctrl + Q
-            Quit();
-    }
-
-    m_PressedOnce = true;
 }
 
 /// @brief Handles entering & exit of fullscreen mode.
@@ -224,12 +191,23 @@ void ShowcaseApplication::Fullscreen()
     glViewport(0, 0, display_w, display_h);
 }
 
+/// @brief Switches Cursor Lock State.
 void ShowcaseApplication::SwitchCursorLock()
 {
+    m_CursorLocked = !m_CursorLocked;
+    if(m_CursorLocked)
+    {
+        // Set Cursor position to be in the middle of the screen.
+        int display_w, display_h;
+        glfwGetFramebufferSize(m_Window, &display_w, &display_h);
+        glfwSetCursorPos(m_Window, display_w * 0.5f, display_h * 0.5f);
+    }
+    glfwSetInputMode(m_Window, GLFW_CURSOR, m_CursorLocked ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
 }
 
 void ShowcaseApplication::ShowHideFPS()
 {
+    m_FPSVisible = !m_FPSVisible;
 }
 
 void ShowcaseApplication::ShowHideMenu()
@@ -239,14 +217,13 @@ void ShowcaseApplication::ShowHideMenu()
 
 void ShowcaseApplication::ShowHideSettings()
 {
-}
-
-void ShowcaseApplication::OpenCurrentLecture()
-{
+    m_SettingsVisible = !m_SettingsVisible;
 }
 
 void ShowcaseApplication::Quit()
 {
+    // Set Window to Close.
+    glfwSetWindowShouldClose(m_Window, GLFW_TRUE);
 }
 
 /// @brief Creates a New ImGui Frame.
@@ -261,10 +238,10 @@ void ShowcaseApplication::ImGuiBeginFrame()
 /// @brief Renders all the stuff we send to ImGui
 void ShowcaseApplication::ImGuiRender()
 {
-    static bool s=true;
-    ImGui::ShowDemoWindow(&s);
 
-    if (ImGui::BeginMainMenuBar())
+    ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{12.0f, 6.5f});
+    
+    if (m_MenuVisible && ImGui::BeginMainMenuBar())
     {
         #pragma region Options
 
@@ -274,25 +251,25 @@ void ShowcaseApplication::ImGuiRender()
                 Fullscreen();
 
             if (ImGui::MenuItem("Show/Hide FPS", "Ctrl+F"))
-                std::cout << "Show/Hide FPS\n";
+                ShowHideFPS();
 
             if (ImGui::MenuItem("Show/Hide Menu", "Ctrl+H"))
                 ShowHideMenu();
 
             if (ImGui::MenuItem("Show/Hide Settings", "Ctrl+S"))
-                std::cout << "Show/Hide Settings\n";
+                ShowHideSettings();
 
             if (ImGui::MenuItem("Show/Hide Cursor", "RMB"))
-                std::cout << "Show/Hide Cursor\n";
+                SwitchCursorLock();
 
             if (ImGui::MenuItem("Open Current Lecture", "Ctrl+I"))
-                std::cout << "Open Current Lecture\n";
+                Lectures::m_Instance->OpenLectureLink(m_CurrentLectureIndex);
 
             ImGui::Separator();
 
             if (ImGui::MenuItem("Quit", "Ctrl+Q")) 
-                std::cout << "Quit\n";
-
+                Quit();
+            
             ImGui::EndMenu();
         }
 
@@ -304,77 +281,77 @@ void ShowcaseApplication::ImGuiRender()
         {
             if (ImGui::BeginMenu("Getting Started"))
             {
-                if (ImGui::MenuItem("Hello Window")) {}
-                if (ImGui::MenuItem("Hello Triangle")) {}
-                if (ImGui::MenuItem("Shaders")) {}
-                if (ImGui::MenuItem("Textures")) {}
-                if (ImGui::MenuItem("Transformations")) {}
-                if (ImGui::MenuItem("Coordinate Systems")) {}
-                if (ImGui::MenuItem("Camera")) {}
+                if (ImGui::MenuItem("Hello Window"))        { m_CurrentLectureIndex = 0; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Hello Triangle"))      { m_CurrentLectureIndex = 1; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Shaders"))             { m_CurrentLectureIndex = 2; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Textures"))            { m_CurrentLectureIndex = 3; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Transformations"))     { m_CurrentLectureIndex = 4; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Coordinate Systems"))  { m_CurrentLectureIndex = 5; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Camera"))              { m_CurrentLectureIndex = 6; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                 ImGui::EndMenu();
             }
 
             if (ImGui::BeginMenu("Lighting"))
             {
-                if (ImGui::MenuItem("Colors")) {}
-                if (ImGui::MenuItem("Basic Lighting")) {}
-                if (ImGui::MenuItem("Materials")) {}
-                if (ImGui::MenuItem("Lighting Maps")) {}
-                if (ImGui::MenuItem("Light Casters")) {}
-                if (ImGui::MenuItem("Multiple lights")) {}
+                if (ImGui::MenuItem("Colors"))              { m_CurrentLectureIndex = 7; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Basic Lighting"))      { m_CurrentLectureIndex = 8; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Materials"))           { m_CurrentLectureIndex = 9; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Lighting Maps"))       { m_CurrentLectureIndex = 10; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Light Casters"))       { m_CurrentLectureIndex = 11; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Multiple lights"))     { m_CurrentLectureIndex = 12; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                 ImGui::EndMenu();
             }
 
             if (ImGui::BeginMenu("Model Loading"))
             {
-                if (ImGui::MenuItem("Assimp")) {}
-                if (ImGui::MenuItem("Mesh")) {}
-                if (ImGui::MenuItem("Model")) {}
+                if (ImGui::MenuItem("Assimp"))              { m_CurrentLectureIndex = 13; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); } 
+                if (ImGui::MenuItem("Mesh"))                { m_CurrentLectureIndex = 14; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Model"))               { m_CurrentLectureIndex = 15; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                 ImGui::EndMenu();
             }
 
             if (ImGui::BeginMenu("Advanced OpenGL"))
             {
-                if (ImGui::MenuItem("Depth testing")) {}
-                if (ImGui::MenuItem("Stencil testing")) {}
-                if (ImGui::MenuItem("Blending")) {}
-                if (ImGui::MenuItem("Face culling")) {}
-                if (ImGui::MenuItem("Framebuffers")) {}
-                if (ImGui::MenuItem("Cubemaps")) {}
-                if (ImGui::MenuItem("Advanced Data")) {}
-                if (ImGui::MenuItem("Advanced GLSL")) {}
-                if (ImGui::MenuItem("Geometry Shader")) {}
-                if (ImGui::MenuItem("Instancing")) {}
-                if (ImGui::MenuItem("Anti Aliasing")) {}
+                if (ImGui::MenuItem("Depth testing"))       { m_CurrentLectureIndex = 16; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Stencil testing"))     { m_CurrentLectureIndex = 17; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Blending"))            { m_CurrentLectureIndex = 18; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Face culling"))        { m_CurrentLectureIndex = 19; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Framebuffers"))        { m_CurrentLectureIndex = 20; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Cubemaps"))            { m_CurrentLectureIndex = 21; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Advanced Data"))       { m_CurrentLectureIndex = 22; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Advanced GLSL"))       { m_CurrentLectureIndex = 23; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Geometry Shader"))     { m_CurrentLectureIndex = 24; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Instancing"))          { m_CurrentLectureIndex = 25; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Anti Aliasing"))       { m_CurrentLectureIndex = 26; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                 ImGui::EndMenu();
             }
 
             if (ImGui::BeginMenu("Advanced Lighting"))
             {
-                if (ImGui::MenuItem("Advanced lighting")) {}
-                if (ImGui::MenuItem("Gamma Correction")) {}
+                if (ImGui::MenuItem("Advanced lighting"))   { m_CurrentLectureIndex = 27; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); } 
+                if (ImGui::MenuItem("Gamma Correction"))    { m_CurrentLectureIndex = 28; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                 if (ImGui::BeginMenu("Shadows")) 
                 {
-                    if (ImGui::MenuItem("Shadow Mapping")) {}
-                    if (ImGui::MenuItem("Point Shadows")) {}
+                    if (ImGui::MenuItem("Shadow Mapping"))  { m_CurrentLectureIndex = 29; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); } 
+                    if (ImGui::MenuItem("Point Shadows"))   { m_CurrentLectureIndex = 30; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                     ImGui::EndMenu();
                 }
-                if (ImGui::MenuItem("Normal Mapping")) {}
-                if (ImGui::MenuItem("Parallax Mapping")) {}
-                if (ImGui::MenuItem("HDR")) {}
-                if (ImGui::MenuItem("Bloom")) {}
-                if (ImGui::MenuItem("Deferred Shading")) {}
-                if (ImGui::MenuItem("SSAO")) {}
+                if (ImGui::MenuItem("Normal Mapping"))      { m_CurrentLectureIndex = 31; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Parallax Mapping"))    { m_CurrentLectureIndex = 32; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("HDR"))                 { m_CurrentLectureIndex = 33; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Bloom"))               { m_CurrentLectureIndex = 34; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Deferred Shading"))    { m_CurrentLectureIndex = 35; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("SSAO"))                { m_CurrentLectureIndex = 36; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                 ImGui::EndMenu();
             }
 
             if (ImGui::BeginMenu("PBR"))
             {
-                if (ImGui::MenuItem("Lighting")) {}
+                if (ImGui::MenuItem("Lighting"))            { m_CurrentLectureIndex = 37; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                 if (ImGui::BeginMenu("IBL")) 
                 {
-                    if (ImGui::MenuItem("Diffuse irradiance")) {}
-                    if (ImGui::MenuItem("Specular IBL")) {}
+                    if (ImGui::MenuItem("Diffuse irradiance"))  { m_CurrentLectureIndex = 38; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                    if (ImGui::MenuItem("Specular IBL"))        { m_CurrentLectureIndex = 39; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                     ImGui::EndMenu();
                 }
                 ImGui::EndMenu();
@@ -382,9 +359,9 @@ void ShowcaseApplication::ImGuiRender()
 
             if (ImGui::BeginMenu("In Practice"))
             {
-                if (ImGui::MenuItem("Debugging")) {}
-                if (ImGui::MenuItem("Text Rendering")) {}
-                if (ImGui::MenuItem("2D Game")) {}
+                if (ImGui::MenuItem("Debugging"))           { m_CurrentLectureIndex = 40; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Text Rendering"))      { m_CurrentLectureIndex = 41; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("2D Game"))             { m_CurrentLectureIndex = 42; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                 ImGui::EndMenu();
             }
 
@@ -394,40 +371,40 @@ void ShowcaseApplication::ImGuiRender()
                 {
                     if (ImGui::BeginMenu("OIT")) 
                     {
-                        if (ImGui::MenuItem("Introduction")) {}
-                        if (ImGui::MenuItem("Weight Blended")) {}
+                        if (ImGui::MenuItem("Introduction"))    { m_CurrentLectureIndex = 43; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); } 
+                        if (ImGui::MenuItem("Weight Blended"))  { m_CurrentLectureIndex = 44; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                         ImGui::EndMenu();
                     }
-                    if (ImGui::MenuItem("Skeletal Animation")) {}
+                    if (ImGui::MenuItem("Skeletal Animation"))  { m_CurrentLectureIndex = 45; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                     ImGui::EndMenu();
                 }
                 if (ImGui::BeginMenu("2021")) 
                 {
-                    if (ImGui::MenuItem("CSM")) {}
+                    if (ImGui::MenuItem("CSM"))                 { m_CurrentLectureIndex = 46; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                     if (ImGui::BeginMenu("Scene")) 
                     {
-                        if (ImGui::MenuItem("Scene Graph")) {}
-                        if (ImGui::MenuItem("Frustum Culling")) {}
+                        if (ImGui::MenuItem("Scene Graph"))     { m_CurrentLectureIndex = 47; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                        if (ImGui::MenuItem("Frustum Culling")) { m_CurrentLectureIndex = 48; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                         ImGui::EndMenu();
                     }
                     if (ImGui::BeginMenu("Tessellation")) 
                     {
-                        if (ImGui::MenuItem("Height map")) {}
-                        if (ImGui::MenuItem("Tessellation")) {}
+                        if (ImGui::MenuItem("Height map"))      { m_CurrentLectureIndex = 49; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                        if (ImGui::MenuItem("Tessellation"))    { m_CurrentLectureIndex = 50; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                         ImGui::EndMenu();
                     }
-                    if (ImGui::MenuItem("DSA")) {}
+                    if (ImGui::MenuItem("DSA"))                 { m_CurrentLectureIndex = 51; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                     ImGui::EndMenu();
                 }
                 if (ImGui::BeginMenu("2022")) 
                 {
                     if (ImGui::BeginMenu("Compute Shaders")) 
                     {
-                        if (ImGui::MenuItem("Introduction")) {}
+                        if (ImGui::MenuItem("Introduction"))    { m_CurrentLectureIndex = 52; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                         ImGui::EndMenu();
                     }
-                    if (ImGui::MenuItem("Phys. Based Bloom")) {}
-                    if (ImGui::MenuItem("Area Lights")) {}
+                    if (ImGui::MenuItem("Phys. Based Bloom"))   { m_CurrentLectureIndex = 53; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                    if (ImGui::MenuItem("Area Lights"))         { m_CurrentLectureIndex = 54; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                     ImGui::EndMenu();
                 }
                 ImGui::EndMenu();
@@ -438,8 +415,21 @@ void ShowcaseApplication::ImGuiRender()
 
         #pragma endregion
 
+        // Show FPS
+        if(m_FPSVisible)
+        {
+            ImGui::SameLine();
+            // Width of FPS
+            float labelWidth = ImGui::CalcTextSize("FPS: 999.99").x;
+            // Set Cursor Position to be at the end of screen minus width of fps label.
+            ImGui::SetCursorScreenPos(ImVec2{ImGui::GetWindowWidth() - labelWidth, 0.0f});
+            ImGui::Text("FPS: %.2f", ImGui::GetIO().Framerate);
+        }
+
         ImGui::EndMainMenuBar();
     }
+
+    ImGui::PopStyleVar();
 }
 
 /// @brief Marks the end of an ImGui Frame.
@@ -450,7 +440,6 @@ void ShowcaseApplication::ImGuiEndFrame()
     int display_w, display_h;
     glfwGetFramebufferSize(m_Window, &display_w, &display_h);
     glViewport(0, 0, display_w, display_h);
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
@@ -468,6 +457,36 @@ void ShowcaseApplication::Cleanup()
     glfwTerminate();
 }
 
+/// @brief Mouse Click Callback from GLFW
+void ShowcaseApplication::MouseButtonCallback(GLFWwindow *window, int button, int action, int mods)
+{
+    // Switch Cursor Lock state on right click press.
+    if(button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+        SwitchCursorLock();
+}
+
+/// @brief Responsible for the Functionality of Keyboard Shortcuts.
+void ShowcaseApplication::KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
+{
+    if(key == GLFW_KEY_F && action == GLFW_PRESS && mods != GLFW_MOD_CONTROL)
+        Fullscreen();   // Pressed F->Enter/Exit Fullscreen.
+ 
+    if(mods == GLFW_MOD_CONTROL)
+    {
+        // Ctrl Pressed!
+        if(key == GLFW_KEY_F && action == GLFW_PRESS) // Ctrl + F
+            ShowHideFPS();
+        if(key == GLFW_KEY_H && action == GLFW_PRESS) // Ctrl + H
+            ShowHideMenu();
+        if(key == GLFW_KEY_S && action == GLFW_PRESS) // Ctrl + S
+            ShowHideSettings();
+        if(key == GLFW_KEY_I && action == GLFW_PRESS) // Ctrl + I
+            Lectures::m_Instance->OpenLectureLink(m_CurrentLectureIndex);
+        if(key == GLFW_KEY_Q && action == GLFW_PRESS) // Ctrl + Q
+            Quit();
+    }
+}
+
 int main()
 {
     ShowcaseApplication app;
@@ -481,4 +500,21 @@ int main()
     }
 
     return EXIT_SUCCESS;
+}
+
+ShowcaseApplication* ShowcaseApplication::GLFWCallbackWrapper::s_application = nullptr;
+
+void ShowcaseApplication::GLFWCallbackWrapper::MouseButtonCallback(GLFWwindow *window, int button, int action, int mods)
+{
+    s_application->MouseButtonCallback(window, button, action, mods);
+}
+
+void ShowcaseApplication::GLFWCallbackWrapper::KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
+{
+    s_application->KeyCallback(window, key, scancode, action, mods);
+}
+
+void ShowcaseApplication::GLFWCallbackWrapper::SetApplication(ShowcaseApplication *application)
+{
+    GLFWCallbackWrapper::s_application = application;
 }
