@@ -1,5 +1,4 @@
 #include "Lectures.h"
-#include <iostream>
 
 Lectures* Lectures::m_Instance = nullptr;
 
@@ -8,7 +7,11 @@ Lectures* Lectures::m_Instance = nullptr;
 void Lectures::OpenLecture(uint32_t lecture_index)
 {
     if(m_Instance->m_Lectures.size() < lecture_index + 1) return;
+
+    // Close the Current Lecture First!
+    m_Instance->m_Lectures[m_CurrentLecture]->CloseLecture();
     m_Instance->m_Lectures[lecture_index]->OpenLecture();
+    m_CurrentLecture = lecture_index;
 }
 
 /// @brief Opens the lecture link of the lecture index

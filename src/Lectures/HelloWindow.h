@@ -1,3 +1,5 @@
+// Link -> https://www.learnopengl.com/Getting-started/Hello-Window
+
 #include "../Lectures.h"
 
 class HelloWindow : public Lecture
@@ -7,6 +9,7 @@ public:
     virtual void OpenLecture() override;
     virtual void OpenLectureLink() override;
     virtual void RenderLecture(bool settingsVisible) override;
+    virtual void CloseLecture() override;
 private:
-    float m_ClearColor[4] = {0.2f, 0.2f, 0.2f, 1.0f};
+    float m_ClearColor[4] = {0.1f, 0.1f, 0.1f, 1.0f};
 };

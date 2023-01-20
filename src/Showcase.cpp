@@ -10,6 +10,7 @@ void ShowcaseApplication::Run()
     // Initialize Lectures
     Lectures::CreateInstance();
     Lectures::m_Instance->m_Lectures.push_back(new HelloWindow());
+    Lectures::m_Instance->m_Lectures.push_back(new HelloTriangle());
     // Main Render Loop.        
     RenderLoop();
     // Free the memory allocations.
@@ -233,6 +234,7 @@ void ShowcaseApplication::ImGuiBeginFrame()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 /// @brief Renders all the stuff we send to ImGui
@@ -440,7 +442,6 @@ void ShowcaseApplication::ImGuiEndFrame()
     int display_w, display_h;
     glfwGetFramebufferSize(m_Window, &display_w, &display_h);
     glViewport(0, 0, display_w, display_h);
-    glClear(GL_COLOR_BUFFER_BIT);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
