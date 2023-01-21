@@ -11,6 +11,7 @@ void ShowcaseApplication::Run()
     Lectures::CreateInstance();
     Lectures::m_Instance->m_Lectures.push_back(new HelloWindow());
     Lectures::m_Instance->m_Lectures.push_back(new HelloTriangle());
+    Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::ShaderLecture());
     // Main Render Loop.        
     RenderLoop();
     // Free the memory allocations.

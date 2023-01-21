@@ -14,11 +14,6 @@ void HelloWindow::OpenLecture()
         m_ClearColor[i] = i < 3 ? 0.1f : 1.0f;
 }
 
-void HelloWindow::OpenLectureLink()
-{
-    system(m_LectureLink);
-}
-
 void HelloWindow::RenderLecture(bool settingsVisible)
 {
     if(settingsVisible)

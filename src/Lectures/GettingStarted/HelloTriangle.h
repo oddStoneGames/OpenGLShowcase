@@ -1,13 +1,12 @@
 // Link -> https://www.learnopengl.com/Getting-started/Hello-Triangle
 
-#include "../Lectures.h"
+#include "../../Lectures.h"
 
 class HelloTriangle : public Lecture
 {
 public:
     HelloTriangle();
     virtual void OpenLecture() override;
-    virtual void OpenLectureLink() override;
     virtual void RenderLecture(bool settingsVisible) override;
     virtual void CloseLecture() override;
 private:

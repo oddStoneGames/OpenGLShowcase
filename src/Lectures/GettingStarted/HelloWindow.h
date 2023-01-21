@@ -1,13 +1,12 @@
 // Link -> https://www.learnopengl.com/Getting-started/Hello-Window
 
-#include "../Lectures.h"
+#include "../../Lectures.h"
 
 class HelloWindow : public Lecture
 {
 public:
     HelloWindow();
     virtual void OpenLecture() override;
-    virtual void OpenLectureLink() override;
     virtual void RenderLecture(bool settingsVisible) override;
     virtual void CloseLecture() override;
 private:

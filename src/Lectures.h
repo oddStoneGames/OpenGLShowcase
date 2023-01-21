@@ -6,14 +6,14 @@
 #include <stdlib.h>
 #include <string>
 
-/// @brief Abstract Class for Lecture to Implement.
+/// @brief Class for Lecture to Implement.
 class Lecture
 {
 public:
     Lecture() = default;
     virtual ~Lecture() = default;
     virtual void OpenLecture() = 0;
-    virtual void OpenLectureLink() = 0;
+    void OpenLectureLink() const { system(m_LectureLink); }
     virtual void RenderLecture(bool settingsVisible) = 0;
     virtual void CloseLecture() = 0;
 protected:

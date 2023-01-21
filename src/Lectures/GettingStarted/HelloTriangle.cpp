@@ -69,11 +69,6 @@ void HelloTriangle::OpenLecture()
     PopulateBuffers();
 }
 
-void HelloTriangle::OpenLectureLink()
-{
-    system(m_LectureLink);
-}
-
 void HelloTriangle::RenderLecture(bool settingsVisible)
 {
     if(settingsVisible)
