@@ -6,7 +6,7 @@ namespace GettingStarted
     ShaderLecture::ShaderLecture() : 
         //using '../' because the current working directory is bin.
         m_Shader("../src/Lectures/GettingStarted/Shader/Triangle.vert", 
-                "../src/Lectures/GettingStarted/Shader/Triangle.frag")
+                 "../src/Lectures/GettingStarted/Shader/Triangle.frag")
     {
         m_LectureLink = "xdg-open https://www.learnopengl.com/Getting-started/Shaders";
     }

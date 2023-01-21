@@ -9,9 +9,10 @@ void ShowcaseApplication::Run()
     InitImGui();
     // Initialize Lectures
     Lectures::CreateInstance();
-    Lectures::m_Instance->m_Lectures.push_back(new HelloWindow());
-    Lectures::m_Instance->m_Lectures.push_back(new HelloTriangle());
+    Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::HelloWindow());
+    Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::HelloTriangle());
     Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::ShaderLecture());
+    Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::TextureLecture());
     // Main Render Loop.        
     RenderLoop();
     // Free the memory allocations.

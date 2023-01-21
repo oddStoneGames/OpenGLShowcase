@@ -9,9 +9,10 @@
 #include "../vendor/imgui/imgui_impl_glfw.h"
 #include "../vendor/imgui/imgui_impl_opengl3.h"
 
-#include "Lectures/GettingStarted/HelloWindow.h"
-#include "Lectures/GettingStarted/HelloTriangle.h"
+#include "Lectures/GettingStarted/HelloWindow/HelloWindow.h"
+#include "Lectures/GettingStarted/HelloTriangle/HelloTriangle.h"
 #include "Lectures/GettingStarted/Shader/ShaderLecture.h"
+#include "Lectures/GettingStarted/Texture/TextureLecture.h"
 
 class ShowcaseApplication
 {

@@ -78,6 +78,12 @@ namespace GettingStarted
             glDeleteShader(fragment);
         }
         
+        ~Shader()
+        {
+            // Delete this Shader Program.
+            glDeleteProgram(ID);
+        }
+
         /// @brief Use/activate the shader.
         void Use() 
         { 
