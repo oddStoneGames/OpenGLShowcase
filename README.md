@@ -9,4 +9,4 @@ Minimum Required OpenGL ES version: **3x**
 Supports **Windows**, **Linux** & **Android**.
 
 ## Snapshots  
-[Texture Lecture](snapshots/1.png)
+[Texture Lecture](snapshots/1.png?raw=true)
