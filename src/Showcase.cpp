@@ -13,6 +13,7 @@ void ShowcaseApplication::Run()
     Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::HelloTriangle());
     Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::ShaderLecture());
     Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::TextureLecture());
+    Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::Transformations());
     // Main Render Loop.        
     RenderLoop();
     // Free the memory allocations.

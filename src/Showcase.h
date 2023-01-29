@@ -13,6 +13,7 @@
 #include "Lectures/GettingStarted/HelloTriangle/HelloTriangle.h"
 #include "Lectures/GettingStarted/Shader/ShaderLecture.h"
 #include "Lectures/GettingStarted/Texture/TextureLecture.h"
+#include "Lectures/GettingStarted/Transformations/Transformations.h"
 
 class ShowcaseApplication
 {

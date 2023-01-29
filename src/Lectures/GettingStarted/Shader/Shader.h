@@ -3,6 +3,7 @@
 // Include glad to get all the required OpenGL headers
 #include "../../vendor/glad/include/glad.h"
 
+#include "../../vendor/glm/glm.hpp"
 #include <unistd.h>
 #include <limits.h>
 #include <string>
@@ -114,6 +115,18 @@ namespace GettingStarted
         void SetFloat4(const std::string &name, float value1, float value2, float value3, float value4) const
         {
             glUniform4f(glGetUniformLocation(ID, name.c_str()), value1, value2, value3, value4);
+        }
+        void SetMat2(const std::string &name, const glm::mat2 &mat2) const
+        {
+            glUniformMatrix2fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat2[0][0]);
+        }
+        void SetMat3(const std::string &name, const glm::mat3 &mat3) const
+        {
+            glUniformMatrix3fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat3[0][0]);
+        }
+        void SetMat4(const std::string &name, glm::mat4 &mat4) const
+        {
+            glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat4[0][0]);
         }
         /// @brief Unbinds any shader currently bound to OpenGL.
         static void Unbind()

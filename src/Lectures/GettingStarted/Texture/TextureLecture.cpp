@@ -1,7 +1,9 @@
 #include "TextureLecture.h"
-#include <stb_image.h>
 #include <string>
 #include <iostream>
+
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
 
 namespace GettingStarted
 {
