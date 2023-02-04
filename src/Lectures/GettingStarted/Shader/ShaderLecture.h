@@ -11,7 +11,7 @@ namespace GettingStarted
     public:
         ShaderLecture();
         virtual void OpenLecture() override;
-        virtual void RenderLecture(bool settingsVisible) override;
+        virtual void RenderLecture(bool settingsVisible, int width, int height) override;
         virtual void CloseLecture() override;
     private:
         Shader m_Shader;

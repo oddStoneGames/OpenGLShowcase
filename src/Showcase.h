@@ -14,6 +14,7 @@
 #include "Lectures/GettingStarted/Shader/ShaderLecture.h"
 #include "Lectures/GettingStarted/Texture/TextureLecture.h"
 #include "Lectures/GettingStarted/Transformations/Transformations.h"
+#include "Lectures/GettingStarted/CoordinateSystem/CoordinateSystem.h"
 
 class ShowcaseApplication
 {

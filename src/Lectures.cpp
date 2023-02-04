@@ -25,10 +25,10 @@ void Lectures::OpenLectureLink(uint32_t lecture_index)
 /// @brief Renders the lecture of the lecture index
 /// @param lecture_index Lecture Index
 /// @param settingsVisible Render ImGui Lecture Specific Settings?
-void Lectures::RenderLecture(uint32_t lecture_index, bool settingsVisible)
+void Lectures::RenderLecture(uint32_t lecture_index, bool settingsVisible, int width, int height)
 {
     if(m_Instance->m_Lectures.size() < lecture_index + 1) return;
-    m_Instance->m_Lectures[lecture_index]->RenderLecture(settingsVisible);
+    m_Instance->m_Lectures[lecture_index]->RenderLecture(settingsVisible, width, height);
 }
 
 /// @brief Creates Lectures Instance.

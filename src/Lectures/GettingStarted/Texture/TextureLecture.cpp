@@ -54,7 +54,7 @@ namespace GettingStarted
         Shader::Unbind();
     }
 
-    void TextureLecture::RenderLecture(bool settingsVisible)
+    void TextureLecture::RenderLecture(bool settingsVisible, int width, int height)
     {
         if(settingsVisible)
         {

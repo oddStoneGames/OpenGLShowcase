@@ -9,4 +9,5 @@ Minimum Required OpenGL ES version: **3x**
 Supports **Windows**, **Linux** & **Android**.  
 
 ## Snapshots  
+![Alt text](/snapshots/2.png)  
 ![Alt text](/snapshots/1.png)

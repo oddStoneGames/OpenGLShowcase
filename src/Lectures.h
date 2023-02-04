@@ -14,7 +14,7 @@ public:
     virtual ~Lecture() = default;
     virtual void OpenLecture() = 0;
     void OpenLectureLink() const { system(m_LectureLink); }
-    virtual void RenderLecture(bool settingsVisible) = 0;
+    virtual void RenderLecture(bool settingsVisible, int width, int height) = 0;
     virtual void CloseLecture() = 0;
 protected:
     const char* m_LectureLink;
@@ -28,7 +28,7 @@ public:
     ~Lectures() { delete m_Instance; }
     void OpenLecture(uint32_t lecture_index);
     void OpenLectureLink(uint32_t lecture_index);
-    void RenderLecture(uint32_t lecture_index, bool settingsVisible);
+    void RenderLecture(uint32_t lecture_index, bool settingsVisible, int width, int height);
     std::vector<Lecture*> m_Lectures;
     static Lectures* m_Instance;
     static void CreateInstance();

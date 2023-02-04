@@ -55,7 +55,7 @@ namespace GettingStarted
         Shader::Unbind();
     }
 
-    void Transformations::RenderLecture(bool settingsVisible)
+    void Transformations::RenderLecture(bool settingsVisible, int width, int height)
     {
         if(settingsVisible)
         {

@@ -11,7 +11,7 @@ namespace GettingStarted
     public:
         TextureLecture();
         virtual void OpenLecture() override;
-        virtual void RenderLecture(bool settingsVisible) override;
+        virtual void RenderLecture(bool settingsVisible, int width, int height) override;
         virtual void CloseLecture() override;
     private:
         void LoadTexture(const char* texturePath);

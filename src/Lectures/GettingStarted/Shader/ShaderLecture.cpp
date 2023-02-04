@@ -42,7 +42,7 @@ namespace GettingStarted
         Shader::Unbind();
     }
 
-    void ShaderLecture::RenderLecture(bool settingsVisible)
+    void ShaderLecture::RenderLecture(bool settingsVisible, int width, int height)
     {
         if(settingsVisible)
         {

@@ -9,7 +9,7 @@ namespace GettingStarted
     public:
         HelloWindow();
         virtual void OpenLecture() override;
-        virtual void RenderLecture(bool settingsVisible) override;
+        virtual void RenderLecture(bool settingsVisible, int width, int height) override;
         virtual void CloseLecture() override;
     private:
         float m_ClearColor[4] = {0.1f, 0.1f, 0.1f, 1.0f};

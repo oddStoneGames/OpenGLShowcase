@@ -16,7 +16,7 @@ namespace GettingStarted
             m_ClearColor[i] = i < 3 ? 0.1f : 1.0f;
     }
 
-    void HelloWindow::RenderLecture(bool settingsVisible)
+    void HelloWindow::RenderLecture(bool settingsVisible, int width, int height)
     {
         if(settingsVisible)
         {

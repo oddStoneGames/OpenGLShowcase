@@ -71,7 +71,7 @@ namespace GettingStarted
         PopulateBuffers();
     }
 
-    void HelloTriangle::RenderLecture(bool settingsVisible)
+    void HelloTriangle::RenderLecture(bool settingsVisible, int width, int height)
     {
         if(settingsVisible)
         {

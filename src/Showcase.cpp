@@ -14,6 +14,8 @@ void ShowcaseApplication::Run()
     Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::ShaderLecture());
     Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::TextureLecture());
     Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::Transformations());
+    int w, h; glfwGetFramebufferSize(m_Window, &w, &h);
+    Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::CoordinateSystem(w, h));
     // Main Render Loop.        
     RenderLoop();
     // Free the memory allocations.
@@ -162,7 +164,9 @@ void ShowcaseApplication::RenderLoop()
         // Render ImGui.
         ImGuiRender();
         // Render Current Lecture.
-        Lectures::m_Instance->RenderLecture(m_CurrentLectureIndex, m_SettingsVisible);
+        int width, height;
+        glfwGetFramebufferSize(m_Window, &width, &height);
+        Lectures::m_Instance->RenderLecture(m_CurrentLectureIndex, m_SettingsVisible, width, height);
         // Show the output of ImGui.
         ImGuiEndFrame();
         // Swap Buffers!
@@ -237,7 +241,7 @@ void ShowcaseApplication::ImGuiBeginFrame()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 /// @brief Renders all the stuff we send to ImGui
