@@ -1,4 +1,5 @@
 #include "Showcase.h"
+#include <stb_image.h>
 
 /// @brief Creates, Runs & Destroys the Showcase Application.
 void ShowcaseApplication::Run()
@@ -56,6 +57,13 @@ bool ShowcaseApplication::Init()
         glfwTerminate();
         return false;
     }
+
+    // Set Window Icon.
+    GLFWimage icon[1]; 
+    icon[0].pixels = stbi_load(PROJECT_DIR"/src/Assets/Textures/icon.png", &icon[0].width, &icon[0].height, 0, 4);
+    glfwSetWindowIcon(m_Window, 1, icon); 
+    stbi_image_free(icon[0].pixels);
+
     glViewport(0, 0, WIDTH, HEIGHT);
 
     return true;
