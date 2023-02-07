@@ -8,9 +8,8 @@
 namespace GettingStarted
 {
     TextureLecture::TextureLecture() : 
-        //using '../' because the current working directory is bin.
-        m_Shader("../src/Lectures/GettingStarted/Texture/Texture.vert",
-                 "../src/Lectures/GettingStarted/Texture/Texture.frag")
+        m_Shader(PROJECT_DIR"/src/Lectures/GettingStarted/Texture/Texture.vert",
+                 PROJECT_DIR"/src/Lectures/GettingStarted/Texture/Texture.frag")
     {
         m_LectureLink = "xdg-open https://www.learnopengl.com/Getting-started/Textures";
     }
@@ -212,7 +211,7 @@ namespace GettingStarted
         m_TextureFilterMAGMode = GL_NEAREST;
         
         // Default Texture
-        LoadTexture("../src/Assets/Textures/sampleTexture.png");
+        LoadTexture(PROJECT_DIR"/src/Assets/Textures/sampleTexture.png");
 
         for(int i = 0; i < 3; i++)
         {

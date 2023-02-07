@@ -43,6 +43,6 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 # PRECOMPILED HEADER
 target_precompile_headers(${PROJECT_NAME} PUBLIC src/pch.h)
-#target_compile_definitions(${PROJECT_NAME} PUBLIC STB_IMAGE_IMPLEMENTATION)
+target_compile_definitions(${PROJECT_NAME} PUBLIC PROJECT_DIR="${PROJECT_SOURCE_DIR}")
 target_include_directories(${PROJECT_NAME} PUBLIC ${EXTRA_INCLUDES})
 target_link_libraries(${PROJECT_NAME} PUBLIC ${EXTRA_LIBS} glfw3 X11 Xxf86vm Xrandr pthread Xi dl Xinerama Xcursor)

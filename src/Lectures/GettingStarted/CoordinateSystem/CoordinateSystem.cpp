@@ -7,9 +7,8 @@
 namespace GettingStarted
 {
     CoordinateSystem::CoordinateSystem(int width, int height) : 
-        //using '../' because the current working directory is bin.
-        m_Shader("../src/Lectures/GettingStarted/CoordinateSystem/CoordinateSystem.vert",
-                 "../src/Lectures/GettingStarted/CoordinateSystem/CoordinateSystem.frag")
+        m_Shader(PROJECT_DIR"/src/Lectures/GettingStarted/CoordinateSystem/CoordinateSystem.vert",
+                 PROJECT_DIR"/src/Lectures/GettingStarted/CoordinateSystem/CoordinateSystem.frag")
     {
         m_LectureLink = "xdg-open https://www.learnopengl.com/Getting-started/Coordinate-Systems";
         
@@ -203,7 +202,7 @@ namespace GettingStarted
     void CoordinateSystem::Reset(int width, int height)
     {
         // Default Texture
-        LoadTexture("../src/Assets/Textures/moai.png");
+        LoadTexture(PROJECT_DIR"/src/Assets/Textures/moai.png");
         m_ModelPosition = glm::vec3(0.0f);
         m_ModelRotation = glm::vec3(10.0f, 20.0f, 0.0f);
         m_ModelScale = glm::vec3(1.0f);

@@ -7,9 +7,8 @@
 namespace GettingStarted
 {
     Transformations::Transformations() : 
-        //using '../' because the current working directory is bin.
-        m_Shader("../src/Lectures/GettingStarted/Transformations/Transformations.vert",
-                 "../src/Lectures/GettingStarted/Transformations/Transformations.frag")
+        m_Shader(PROJECT_DIR"/src/Lectures/GettingStarted/Transformations/Transformations.vert",
+                 PROJECT_DIR"/src/Lectures/GettingStarted/Transformations/Transformations.frag")
     {
         m_LectureLink = "xdg-open https://www.learnopengl.com/Getting-started/Transformations";
         
@@ -175,7 +174,7 @@ namespace GettingStarted
     void Transformations::Reset()
     {
         // Default Texture
-        LoadTexture("../src/Assets/Textures/GuyJumping.png");
+        LoadTexture(PROJECT_DIR"/src/Assets/Textures/GuyJumping.png");
         m_Transform = glm::mat4(1.0f);
         m_Position = glm::vec3(0.0f);
         m_Rotation = glm::vec3(0.0f);
