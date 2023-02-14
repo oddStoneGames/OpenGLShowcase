@@ -1,9 +1,9 @@
-#pragma once
+#ifndef SHADER_H
+#define SHADER_H
 
 // Include glad to get all the required OpenGL headers
-#include "../../vendor/glad/include/glad.h"
-
-#include "../../vendor/glm/glm.hpp"
+#include "../../../../vendor/glad/include/glad.h"
+#include "../../../../vendor/glm/glm.hpp"
 #include <unistd.h>
 #include <limits.h>
 #include <string>
@@ -163,3 +163,4 @@ namespace GettingStarted
         }
     };
 }
+#endif // !SHADER_H

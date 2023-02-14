@@ -38,7 +38,9 @@ set(SOURCE_FILES    src/Showcase.cpp src/Showcase.h
                     src/Lectures/GettingStarted/Shader/ShaderLecture.cpp src/Lectures/GettingStarted/Shader/ShaderLecture.h
                     src/Lectures/GettingStarted/Texture/TextureLecture.cpp src/Lectures/GettingStarted/Texture/TextureLecture.h
                     src/Lectures/GettingStarted/Transformations/Transformations.cpp src/Lectures/GettingStarted/Transformations/Transformations.h
-                    src/Lectures/GettingStarted/CoordinateSystem/CoordinateSystem.cpp src/Lectures/GettingStarted/CoordinateSystem/CoordinateSystem.h)
+                    src/Lectures/GettingStarted/CoordinateSystem/CoordinateSystem.cpp src/Lectures/GettingStarted/CoordinateSystem/CoordinateSystem.h
+                    src/Lectures/GettingStarted/Camera/Camera.h
+                    src/Lectures/GettingStarted/Camera/CameraLecture.cpp src/Lectures/GettingStarted/Camera/CameraLecture.h)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 # PRECOMPILED HEADER

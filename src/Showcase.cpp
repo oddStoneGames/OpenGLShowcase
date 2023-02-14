@@ -17,6 +17,8 @@ void ShowcaseApplication::Run()
     Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::Transformations());
     int w, h; glfwGetFramebufferSize(m_Window, &w, &h);
     Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::CoordinateSystem(w, h));
+    m_CameraLecture = new GettingStarted::CameraLecture(w, h);
+    Lectures::m_Instance->m_Lectures.push_back(m_CameraLecture);
     // Main Render Loop.        
     RenderLoop();
     // Free the memory allocations.
@@ -47,7 +49,12 @@ bool ShowcaseApplication::Init()
 
     // Set Mouse Button Callback
     GLFWCallbackWrapper::SetApplication(this);
+    // Set Mouse Button Callback
     glfwSetMouseButtonCallback(m_Window, GLFWCallbackWrapper::MouseButtonCallback);
+    // Set Mouse Move Callback
+    glfwSetCursorPosCallback(m_Window, GLFWCallbackWrapper::MouseMoveCallback);
+    // Set Mouse Scroll Callback
+    glfwSetScrollCallback(m_Window, GLFWCallbackWrapper::MouseScrollCallback);
     // Set Key Callback
     glfwSetKeyCallback(m_Window, GLFWCallbackWrapper::KeyCallback);
 
@@ -165,8 +172,15 @@ void ShowcaseApplication::RenderLoop()
 {
     while(!glfwWindowShouldClose(m_Window))
     {
+        // Get Per frame based DeltaTime.
+        float currentFrame = static_cast<float>(glfwGetTime());
+        m_DeltaTime = currentFrame - m_LastTime;
+        m_LastTime = currentFrame;
+
         // Poll and handle events (inputs, window resize, etc.)
         glfwPollEvents();
+        ProcessInput();
+
         // Start New ImGui Frame.
         ImGuiBeginFrame();
         // Render ImGui.
@@ -481,6 +495,36 @@ void ShowcaseApplication::MouseButtonCallback(GLFWwindow *window, int button, in
         SwitchCursorLock();
 }
 
+void ShowcaseApplication::MouseMoveCallback(GLFWwindow *window, double xpos, double ypos)
+{
+    if(m_CurrentLectureIndex == 6 && m_CursorLocked)
+    {
+        float xposF = static_cast<float>(xpos);
+        float yposF = static_cast<float>(ypos);
+
+        if (m_FirstMouse)
+        {
+            m_LastX = xpos;
+            m_LastY = ypos;
+            m_FirstMouse = false;
+        }
+
+        float xoffset = xposF - m_LastX;
+        float yoffset = m_LastY - yposF; // reversed since y-coordinates go from bottom to top
+
+        m_LastX = xposF;
+        m_LastY = yposF;
+        m_CameraLecture->GetCamera().ProcessMouseMovement(xoffset, yoffset);
+    }
+        
+}
+
+void ShowcaseApplication::MouseScrollCallback(GLFWwindow *window, double xoffset, double yoffset)
+{
+    if(m_CurrentLectureIndex == 6)
+        m_CameraLecture->GetCamera().ProcessMouseScroll(static_cast<float>(yoffset));
+}
+
 /// @brief Responsible for the Functionality of Keyboard Shortcuts.
 void ShowcaseApplication::KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
@@ -500,6 +544,22 @@ void ShowcaseApplication::KeyCallback(GLFWwindow *window, int key, int scancode,
             Lectures::m_Instance->OpenLectureLink(m_CurrentLectureIndex);
         if(key == GLFW_KEY_Q && action == GLFW_PRESS) // Ctrl + Q
             Quit();
+    }
+}
+
+void ShowcaseApplication::ProcessInput()
+{
+    if(m_CurrentLectureIndex == 6)
+    {
+        // Send Camera Keyboard Input.
+        if (glfwGetKey(m_Window, GLFW_KEY_W) == GLFW_PRESS)
+            m_CameraLecture->GetCamera().ProcessKeyboard(GettingStarted::Camera_Movement::FORWARD, m_DeltaTime);
+        if (glfwGetKey(m_Window, GLFW_KEY_S) == GLFW_PRESS)
+            m_CameraLecture->GetCamera().ProcessKeyboard(GettingStarted::Camera_Movement::BACKWARD, m_DeltaTime);
+        if (glfwGetKey(m_Window, GLFW_KEY_A) == GLFW_PRESS)
+            m_CameraLecture->GetCamera().ProcessKeyboard(GettingStarted::Camera_Movement::LEFT, m_DeltaTime);
+        if (glfwGetKey(m_Window, GLFW_KEY_D) == GLFW_PRESS)
+            m_CameraLecture->GetCamera().ProcessKeyboard(GettingStarted::Camera_Movement::RIGHT, m_DeltaTime);
     }
 }
 
@@ -528,6 +588,16 @@ void ShowcaseApplication::GLFWCallbackWrapper::MouseButtonCallback(GLFWwindow *w
 void ShowcaseApplication::GLFWCallbackWrapper::KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
     s_application->KeyCallback(window, key, scancode, action, mods);
+}
+
+void ShowcaseApplication::GLFWCallbackWrapper::MouseMoveCallback(GLFWwindow *window, double xpos, double ypos)
+{
+    s_application->MouseMoveCallback(window, xpos, ypos);
+}
+
+void ShowcaseApplication::GLFWCallbackWrapper::MouseScrollCallback(GLFWwindow *window, double xoffset, double yoffset)
+{
+    s_application->MouseScrollCallback(window, xoffset, yoffset);
 }
 
 void ShowcaseApplication::GLFWCallbackWrapper::SetApplication(ShowcaseApplication *application)

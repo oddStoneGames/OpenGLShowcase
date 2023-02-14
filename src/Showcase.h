@@ -15,6 +15,7 @@
 #include "Lectures/GettingStarted/Texture/TextureLecture.h"
 #include "Lectures/GettingStarted/Transformations/Transformations.h"
 #include "Lectures/GettingStarted/CoordinateSystem/CoordinateSystem.h"
+#include "Lectures/GettingStarted/Camera/CameraLecture.h"
 
 class ShowcaseApplication
 {
@@ -40,13 +41,20 @@ private:
     bool m_Fullscreen = false;
     bool m_CursorLocked = false;
     bool m_FPSVisible = true, m_MenuVisible = true, m_SettingsVisible = true;
+    float m_DeltaTime = 0.0f, m_LastTime = 0.0f;
     const uint32_t WIDTH = 1080; 
     const uint32_t HEIGHT = 608;
     const uint32_t REFRESHRATE = 60;
     uint32_t m_CurrentLectureIndex = 0;
+    GettingStarted::CameraLecture* m_CameraLecture;
+    bool m_FirstMouse = true;
+    float m_LastX = WIDTH / 2.0f, m_LastY = HEIGHT / 2.0f;
 private:
     void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+    void MouseMoveCallback(GLFWwindow* window, double xpos, double ypos);
+    void MouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
     void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+    void ProcessInput();
 
     /// @brief Used to get callbacks from GLFW which expects static functions.
     class GLFWCallbackWrapper
@@ -57,6 +65,8 @@ private:
 
             static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
             static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+            static void MouseMoveCallback(GLFWwindow* window, double xpos, double ypos);
+            static void MouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
             static void SetApplication(ShowcaseApplication *application);
         private:
             static ShowcaseApplication* s_application;
