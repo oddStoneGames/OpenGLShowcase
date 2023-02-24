@@ -10,7 +10,7 @@ namespace GettingStarted
         m_Shader(PROJECT_DIR"/src/Lectures/GettingStarted/Transformations/Transformations.vert",
                  PROJECT_DIR"/src/Lectures/GettingStarted/Transformations/Transformations.frag")
     {
-        m_LectureLink = "xdg-open https://www.learnopengl.com/Getting-started/Transformations";
+        m_LectureLink = "https://www.learnopengl.com/Getting-started/Transformations";
         
         // Initialize default values.
         Reset();

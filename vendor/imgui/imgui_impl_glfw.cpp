@@ -68,11 +68,11 @@
 #endif
 
 // GLFW
-#include <GLFW/glfw3.h>
+#include "../glfw/include/GLFW/glfw3.h"
 #ifdef _WIN32
 #undef APIENTRY
 #define GLFW_EXPOSE_NATIVE_WIN32
-#include <GLFW/glfw3native.h>   // for glfwGetWin32Window
+#include "../glfw/include/GLFW/glfw3native.h" // for glfwGetWin32Window
 #endif
 
 // We gather version tests as define in order to easily see which features are version-dependent.

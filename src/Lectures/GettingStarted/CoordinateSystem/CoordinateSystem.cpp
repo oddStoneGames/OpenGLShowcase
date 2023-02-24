@@ -10,7 +10,7 @@ namespace GettingStarted
         m_Shader(PROJECT_DIR"/src/Lectures/GettingStarted/CoordinateSystem/CoordinateSystem.vert",
                  PROJECT_DIR"/src/Lectures/GettingStarted/CoordinateSystem/CoordinateSystem.frag")
     {
-        m_LectureLink = "xdg-open https://www.learnopengl.com/Getting-started/Coordinate-Systems";
+        m_LectureLink = "https://www.learnopengl.com/Getting-started/Coordinate-Systems";
         
         // Initialize default values.
         Reset(width, height);

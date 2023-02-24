@@ -7,7 +7,7 @@ namespace GettingStarted
     /// @brief Intialize Lecture Link & all the other variables necessary.
     HelloTriangle::HelloTriangle()
     {
-        m_LectureLink = "xdg-open https://www.learnopengl.com/Getting-started/Hello-Triangle";
+        m_LectureLink = "https://www.learnopengl.com/Getting-started/Hello-Triangle";
 
         // Store Initial Values.
         for(int i = 0; i < 12; i++)

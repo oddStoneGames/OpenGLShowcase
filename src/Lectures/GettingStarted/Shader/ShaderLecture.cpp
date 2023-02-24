@@ -7,7 +7,7 @@ namespace GettingStarted
         m_Shader(PROJECT_DIR"/src/Lectures/GettingStarted/Shader/Triangle.vert", 
                  PROJECT_DIR"/src/Lectures/GettingStarted/Shader/Triangle.frag")
     {
-        m_LectureLink = "xdg-open https://www.learnopengl.com/Getting-started/Shaders";
+        m_LectureLink = "https://www.learnopengl.com/Getting-started/Shaders";
     }
 
     void ShaderLecture::OpenLecture()

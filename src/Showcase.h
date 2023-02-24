@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <cstdlib>
 
-#include "../vendor/glfw/include/glfw3.h"
+#include "../vendor/glfw/include/GLFW/glfw3.h"
 #include "../vendor/imgui/imgui_impl_glfw.h"
 #include "../vendor/imgui/imgui_impl_opengl3.h"
 
@@ -54,6 +54,7 @@ private:
     void MouseMoveCallback(GLFWwindow* window, double xpos, double ypos);
     void MouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
     void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+    void ResizeCallback(GLFWwindow* window, int width, int height);
     void ProcessInput();
 
     /// @brief Used to get callbacks from GLFW which expects static functions.
@@ -67,6 +68,7 @@ private:
             static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
             static void MouseMoveCallback(GLFWwindow* window, double xpos, double ypos);
             static void MouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
+            static void ResizeCallback(GLFWwindow* window, int width, int height);
             static void SetApplication(ShowcaseApplication *application);
         private:
             static ShowcaseApplication* s_application;

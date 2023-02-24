@@ -2,6 +2,11 @@
 #include <string>
 #include <iostream>
 
+#ifdef WIN32
+#include <Windows.h>
+#endif // WIN32
+
+
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
@@ -11,7 +16,7 @@ namespace GettingStarted
         m_Shader(PROJECT_DIR"/src/Lectures/GettingStarted/Texture/Texture.vert",
                  PROJECT_DIR"/src/Lectures/GettingStarted/Texture/Texture.frag")
     {
-        m_LectureLink = "xdg-open https://www.learnopengl.com/Getting-started/Textures";
+        m_LectureLink = "https://www.learnopengl.com/Getting-started/Textures";
     }
 
     void TextureLecture::OpenLecture()
@@ -62,14 +67,37 @@ namespace GettingStarted
             if(DrawButtonCentered("Choose Custom Image"))
             {
                 // Open a Popup to Select File.
-                char filename[FILENAME_MAX];
-                FILE *f = popen("zenity --file-selection", "r");
-                fgets(filename, FILENAME_MAX, f);
-                std::string filePath = filename;
-                // Replace the Null Char with Espace Backslashes otherwise stb_load won't be able to open the file.
-                filePath.replace(filePath.length() - 1, 1, '\0', '\\');
-                // Load Image.
-                LoadTexture(filePath.c_str());
+                char filename[FILENAME_MAX] = "";
+
+                #ifdef WIN32
+                    OPENFILENAME ofn;
+                    ZeroMemory(&ofn, sizeof(ofn));
+
+                    ofn.lStructSize = sizeof(OPENFILENAME);
+                    ofn.hwndOwner = NULL;
+                    ofn.lpstrFilter = NULL;
+                    ofn.lpstrFile = filename;
+                    ofn.nMaxFile = MAX_PATH;
+                    ofn.Flags = OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
+                    ofn.lpstrDefExt = "";
+
+                    std::string fileNameStr;
+                    if (GetOpenFileName(&ofn))
+                    {
+                        fileNameStr = filename;
+                        // Load Image.
+                        LoadTexture(fileNameStr.c_str());
+                    }
+                #else
+                    // Linux File open dialog
+                    FILE* f = popen("zenity --file-selection", "r");
+                    fgets(filename, FILENAME_MAX, f);
+                    std::string filePath = filename;
+                    // Replace the Null Char with Espace Backslashes otherwise stb_load won't be able to open the file.
+                    filePath.replace(filePath.length() - 1, 1, '\0', '\\');
+                    // Load Image.
+                    LoadTexture(filePath.c_str());
+                #endif // WIN32
             }
 
             ImGui::DragFloat2(LabelPrefix("Tiling: ").c_str(), m_Tiling, 0.1f, -10.0f, 10.0f, "%.1f");

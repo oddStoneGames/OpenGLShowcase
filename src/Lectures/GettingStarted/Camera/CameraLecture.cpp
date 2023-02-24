@@ -10,7 +10,7 @@ namespace GettingStarted
         m_Shader(PROJECT_DIR"/src/Lectures/GettingStarted/Camera/CameraLecture.vert",
                  PROJECT_DIR"/src/Lectures/GettingStarted/Camera/CameraLecture.frag")
     {
-        m_LectureLink = "xdg-open https://www.learnopengl.com/Getting-started/Camera";
+        m_LectureLink = "https://www.learnopengl.com/Getting-started/Camera";
         
         // Initialize default values.
         Reset(width, height);

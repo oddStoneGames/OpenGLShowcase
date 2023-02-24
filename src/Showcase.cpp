@@ -57,6 +57,8 @@ bool ShowcaseApplication::Init()
     glfwSetScrollCallback(m_Window, GLFWCallbackWrapper::MouseScrollCallback);
     // Set Key Callback
     glfwSetKeyCallback(m_Window, GLFWCallbackWrapper::KeyCallback);
+    // Set Window Resize Callback
+    glfwSetWindowSizeCallback(m_Window, GLFWCallbackWrapper::ResizeCallback);
 
     if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
@@ -211,7 +213,8 @@ void ShowcaseApplication::Fullscreen()
     }else
     {
         // Reset window.
-        glfwSetWindowMonitor(m_Window, nullptr, 0, 0, WIDTH, HEIGHT, REFRESHRATE);
+        // Non zero value for offsets to make sure that the title bar can render on windows.
+        glfwSetWindowMonitor(m_Window, nullptr, 20, 40, WIDTH, HEIGHT, REFRESHRATE);
     }
 
     // Set Context to Current & scale Viewport.
@@ -547,6 +550,11 @@ void ShowcaseApplication::KeyCallback(GLFWwindow *window, int key, int scancode,
     }
 }
 
+void ShowcaseApplication::ResizeCallback(GLFWwindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
+}
+
 void ShowcaseApplication::ProcessInput()
 {
     if(m_CurrentLectureIndex == 6)
@@ -598,6 +606,11 @@ void ShowcaseApplication::GLFWCallbackWrapper::MouseMoveCallback(GLFWwindow *win
 void ShowcaseApplication::GLFWCallbackWrapper::MouseScrollCallback(GLFWwindow *window, double xoffset, double yoffset)
 {
     s_application->MouseScrollCallback(window, xoffset, yoffset);
+}
+
+void ShowcaseApplication::GLFWCallbackWrapper::ResizeCallback(GLFWwindow* window, int width, int height)
+{
+    s_application->ResizeCallback(window, width, height);
 }
 
 void ShowcaseApplication::GLFWCallbackWrapper::SetApplication(ShowcaseApplication *application)

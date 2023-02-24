@@ -13,7 +13,18 @@ public:
     Lecture() = default;
     virtual ~Lecture() = default;
     virtual void OpenLecture() = 0;
-    void OpenLectureLink() const { system(m_LectureLink); }
+    void OpenLectureLink() const 
+    {
+        std::string openCommand;
+        // For Windows to open up a browser, we use start command and for linux we use xdg-open.
+        #ifdef WIN32
+            openCommand = "start ";
+        #else
+            openCommand = "xdg-open ";
+        #endif
+        openCommand.append(m_LectureLink);
+        system(openCommand.c_str());
+    }
     virtual void RenderLecture(bool settingsVisible, int width, int height) = 0;
     virtual void CloseLecture() = 0;
 protected:

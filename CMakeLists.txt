@@ -1,37 +1,44 @@
-cmake_minimum_required(VERSION 3.25.1)
-
-project(OpenGL-Showcase)
+cmake_minimum_required(VERSION 3.6)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+project(OpenGL-Showcase)
+
 # OPENGL
 find_package(OpenGL REQUIRED)
-list(APPEND EXTRA_INCLUDES ${OPENGL_INCLUDE_DIR})
-list(APPEND EXTRA_LIBS ${OPENGL_LIBRARIES})
+list(APPEND INCLUDES ${OPENGL_INCLUDE_DIR})
+list(APPEND LIBS ${OPENGL_LIBRARIES})
 
 # GLFW
-find_package(glfw3 REQUIRED)
-list(APPEND EXTRA_INCLUDES vendor/glfw/include)
-list(APPEND EXTRA_LIBS ${GLFW_LIBRARY_DIRS})
+add_subdirectory(vendor/glfw)
+list(APPEND LIBS glfw)
 
 # GLAD
 add_subdirectory(vendor/glad)
-list(APPEND EXTRA_LIBS glad)
+list(APPEND LIBS glad)
 
 # IMGUI
 add_subdirectory(vendor/imgui)
-list(APPEND EXTRA_LIBS imgui)
+list(APPEND LIBS imgui)
 
 # STB_IMAGE
-list(APPEND EXTRA_INCLUDES vendor/stb)
+list(APPEND INCLUDES vendor/stb)
 
 # GLM
-list(APPEND EXTRA_INCLUDES vendor/glm)
+list(APPEND INCLUDES vendor/glm)
+
+# Add extra libraries based on the operating system.
+if(WIN32)
+    list(APPEND gdi32 user32)
+else()
+    list(APPEND LIBS X11 Xxf86vm Xrandr pthread Xi dl Xinerama Xcursor)
+endif()
 
 set(SOURCE_FILES    src/Showcase.cpp src/Showcase.h 
-                    src/Lectures.cpp src/Lectures.h 
+                    src/Lectures.cpp src/Lectures.h
+
                     src/Lectures/GettingStarted/HelloWindow/HelloWindow.cpp     src/Lectures/GettingStarted/HelloWindow/HelloWindow.h
                     src/Lectures/GettingStarted/HelloTriangle/HelloTriangle.cpp src/Lectures/GettingStarted/HelloTriangle/HelloTriangle.h
                     src/Lectures/GettingStarted/Shader/Shader.h
@@ -43,8 +50,11 @@ set(SOURCE_FILES    src/Showcase.cpp src/Showcase.h
                     src/Lectures/GettingStarted/Camera/CameraLecture.cpp src/Lectures/GettingStarted/Camera/CameraLecture.h)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
+# Set this project as startup project
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
+
 # PRECOMPILED HEADER
 target_precompile_headers(${PROJECT_NAME} PUBLIC src/pch.h)
 target_compile_definitions(${PROJECT_NAME} PUBLIC PROJECT_DIR="${PROJECT_SOURCE_DIR}")
-target_include_directories(${PROJECT_NAME} PUBLIC ${EXTRA_INCLUDES})
-target_link_libraries(${PROJECT_NAME} PUBLIC ${EXTRA_LIBS} glfw3 X11 Xxf86vm Xrandr pthread Xi dl Xinerama Xcursor)
+target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
+target_link_libraries(${PROJECT_NAME} PUBLIC ${LIBS})

@@ -4,7 +4,6 @@
 // Include glad to get all the required OpenGL headers
 #include "../../../../vendor/glad/include/glad.h"
 #include "../../../../vendor/glm/glm.hpp"
-#include <unistd.h>
 #include <limits.h>
 #include <string>
 #include <fstream>

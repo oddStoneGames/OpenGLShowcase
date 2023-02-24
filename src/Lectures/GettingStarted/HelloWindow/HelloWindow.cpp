@@ -6,7 +6,7 @@ namespace GettingStarted
     /// @brief Intialize Lecture Link & all the other variables necessary.
     HelloWindow::HelloWindow()
     {
-        m_LectureLink = "xdg-open https://www.learnopengl.com/Getting-started/Hello-Window";
+        m_LectureLink = "https://www.learnopengl.com/Getting-started/Hello-Window";
     }
 
     void HelloWindow::OpenLecture()
