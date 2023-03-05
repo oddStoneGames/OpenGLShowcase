@@ -17,6 +17,8 @@
 #include "Lectures/GettingStarted/CoordinateSystem/CoordinateSystem.h"
 #include "Lectures/GettingStarted/Camera/CameraLecture.h"
 
+#include "Lectures/Lighting/Colors/ColorLecture.h"
+
 class ShowcaseApplication
 {
 public:
@@ -46,7 +48,6 @@ private:
     const uint32_t HEIGHT = 608;
     const uint32_t REFRESHRATE = 60;
     uint32_t m_CurrentLectureIndex = 0;
-    GettingStarted::CameraLecture* m_CameraLecture;
     bool m_FirstMouse = true;
     float m_LastX = WIDTH / 2.0f, m_LastY = HEIGHT / 2.0f;
 private:

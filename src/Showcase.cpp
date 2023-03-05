@@ -1,4 +1,5 @@
 #include "Showcase.h"
+#include "Lectures/GettingStarted/Camera/Camera.h"
 #include <stb_image.h>
 
 /// @brief Creates, Runs & Destroys the Showcase Application.
@@ -17,8 +18,9 @@ void ShowcaseApplication::Run()
     Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::Transformations());
     int w, h; glfwGetFramebufferSize(m_Window, &w, &h);
     Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::CoordinateSystem(w, h));
-    m_CameraLecture = new GettingStarted::CameraLecture(w, h);
-    Lectures::m_Instance->m_Lectures.push_back(m_CameraLecture);
+    Lectures::m_Instance->m_Lectures.push_back(new GettingStarted::CameraLecture(w, h));
+
+    Lectures::m_Instance->m_Lectures.push_back(new Lighting::ColorLecture(w, h));
     // Main Render Loop.        
     RenderLoop();
     // Free the memory allocations.
@@ -500,11 +502,11 @@ void ShowcaseApplication::MouseButtonCallback(GLFWwindow *window, int button, in
 
 void ShowcaseApplication::MouseMoveCallback(GLFWwindow *window, double xpos, double ypos)
 {
-    if(m_CurrentLectureIndex == 6 && m_CursorLocked)
-    {
-        float xposF = static_cast<float>(xpos);
-        float yposF = static_cast<float>(ypos);
+    float xposF = static_cast<float>(xpos);
+    float yposF = static_cast<float>(ypos);
 
+    if(m_CursorLocked)
+    {
         if (m_FirstMouse)
         {
             m_LastX = xpos;
@@ -515,17 +517,20 @@ void ShowcaseApplication::MouseMoveCallback(GLFWwindow *window, double xpos, dou
         float xoffset = xposF - m_LastX;
         float yoffset = m_LastY - yposF; // reversed since y-coordinates go from bottom to top
 
-        m_LastX = xposF;
-        m_LastY = yposF;
-        m_CameraLecture->GetCamera().ProcessMouseMovement(xoffset, yoffset);
+        GettingStarted::Camera::GetInstance()->ProcessMouseMovement(xoffset, yoffset);
     }
-        
+    else
+    {
+        m_FirstMouse = true;
+    }
+
+    m_LastX = xposF;
+    m_LastY = yposF;
 }
 
 void ShowcaseApplication::MouseScrollCallback(GLFWwindow *window, double xoffset, double yoffset)
 {
-    if(m_CurrentLectureIndex == 6)
-        m_CameraLecture->GetCamera().ProcessMouseScroll(static_cast<float>(yoffset));
+    GettingStarted::Camera::GetInstance()->ProcessMouseScroll(static_cast<float>(yoffset));
 }
 
 /// @brief Responsible for the Functionality of Keyboard Shortcuts.
@@ -557,18 +562,15 @@ void ShowcaseApplication::ResizeCallback(GLFWwindow* window, int width, int heig
 
 void ShowcaseApplication::ProcessInput()
 {
-    if(m_CurrentLectureIndex == 6)
-    {
-        // Send Camera Keyboard Input.
-        if (glfwGetKey(m_Window, GLFW_KEY_W) == GLFW_PRESS)
-            m_CameraLecture->GetCamera().ProcessKeyboard(GettingStarted::Camera_Movement::FORWARD, m_DeltaTime);
-        if (glfwGetKey(m_Window, GLFW_KEY_S) == GLFW_PRESS)
-            m_CameraLecture->GetCamera().ProcessKeyboard(GettingStarted::Camera_Movement::BACKWARD, m_DeltaTime);
-        if (glfwGetKey(m_Window, GLFW_KEY_A) == GLFW_PRESS)
-            m_CameraLecture->GetCamera().ProcessKeyboard(GettingStarted::Camera_Movement::LEFT, m_DeltaTime);
-        if (glfwGetKey(m_Window, GLFW_KEY_D) == GLFW_PRESS)
-            m_CameraLecture->GetCamera().ProcessKeyboard(GettingStarted::Camera_Movement::RIGHT, m_DeltaTime);
-    }
+    // Send Camera Keyboard Input.
+    if (glfwGetKey(m_Window, GLFW_KEY_W) == GLFW_PRESS)
+        GettingStarted::Camera::GetInstance()->ProcessKeyboard(GettingStarted::Camera_Movement::FORWARD, m_DeltaTime);
+    if (glfwGetKey(m_Window, GLFW_KEY_S) == GLFW_PRESS)
+        GettingStarted::Camera::GetInstance()->ProcessKeyboard(GettingStarted::Camera_Movement::BACKWARD, m_DeltaTime);
+    if (glfwGetKey(m_Window, GLFW_KEY_A) == GLFW_PRESS)
+        GettingStarted::Camera::GetInstance()->ProcessKeyboard(GettingStarted::Camera_Movement::LEFT, m_DeltaTime);
+    if (glfwGetKey(m_Window, GLFW_KEY_D) == GLFW_PRESS)
+        GettingStarted::Camera::GetInstance()->ProcessKeyboard(GettingStarted::Camera_Movement::RIGHT, m_DeltaTime);
 }
 
 int main()

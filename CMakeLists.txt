@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.6)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -46,8 +46,10 @@ set(SOURCE_FILES    src/Showcase.cpp src/Showcase.h
                     src/Lectures/GettingStarted/Texture/TextureLecture.cpp src/Lectures/GettingStarted/Texture/TextureLecture.h
                     src/Lectures/GettingStarted/Transformations/Transformations.cpp src/Lectures/GettingStarted/Transformations/Transformations.h
                     src/Lectures/GettingStarted/CoordinateSystem/CoordinateSystem.cpp src/Lectures/GettingStarted/CoordinateSystem/CoordinateSystem.h
-                    src/Lectures/GettingStarted/Camera/Camera.h
-                    src/Lectures/GettingStarted/Camera/CameraLecture.cpp src/Lectures/GettingStarted/Camera/CameraLecture.h)
+                    src/Lectures/GettingStarted/Camera/Camera.h src/Lectures/GettingStarted/Camera/Camera.cpp
+                    src/Lectures/GettingStarted/Camera/CameraLecture.cpp src/Lectures/GettingStarted/Camera/CameraLecture.h
+
+                    src/Lectures/Lighting/Colors/ColorLecture.cpp src/Lectures/Lighting/Colors/ColorLecture.h)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 # Set this project as startup project

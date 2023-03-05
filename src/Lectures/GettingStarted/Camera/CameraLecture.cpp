@@ -1,4 +1,5 @@
 #include "CameraLecture.h"
+#include "Camera.h"
 #include "../../../../vendor/glm/gtc/matrix_transform.hpp"
 #include <string>
 #include <iostream>
@@ -58,15 +59,17 @@ namespace GettingStarted
 
     void CameraLecture::RenderLecture(bool settingsVisible, int width, int height)
     {
+        Camera* cam = Camera::GetInstance();
+
         if(settingsVisible)
         {
             // Draw ImGui Settings Menu.
             ImGui::Begin("Camera Settings");
-
-            ImGui::DragFloat(LabelPrefix("Camera Speed: ").c_str(), &m_Camera.MovementSpeed, 0.05f, -1000.0f, 1000.0f, "%.2f");
-            ImGui::DragFloat(LabelPrefix("Camera Sensitivity: ").c_str(), &m_Camera.MouseSensitivity, 0.01f, 0.0f, 10.0f, "%.2f");
-            ImGui::Checkbox(LabelPrefix("Freeze Y: ").c_str(), &m_Camera.freezeY);
-            ImGui::Checkbox(LabelPrefix("Invert Mouse: ").c_str(), &m_Camera.invertMouse);
+            
+            ImGui::DragFloat(LabelPrefix("Camera Speed: ").c_str(), &cam->MovementSpeed, 0.05f, -1000.0f, 1000.0f, "%.2f");
+            ImGui::DragFloat(LabelPrefix("Camera Sensitivity: ").c_str(), &cam->MouseSensitivity, 0.01f, 0.0f, 10.0f, "%.2f");
+            ImGui::Checkbox(LabelPrefix("Freeze Y: ").c_str(), &cam->freezeY);
+            ImGui::Checkbox(LabelPrefix("Invert Mouse: ").c_str(), &cam->invertMouse);
 
             ImGui::NewLine();
 
@@ -89,7 +92,7 @@ namespace GettingStarted
 
         m_Projection = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
 
-        m_View = m_Camera.GetViewMatrix();
+        m_View = cam->GetViewMatrix();
         
         // Bind Shader.
         m_Shader.Use();
@@ -170,17 +173,19 @@ namespace GettingStarted
         m_Height = height;
 
         // Reset Camera Options
-        m_Camera.Yaw = -90.0f;
-        m_Camera.Pitch =  0.0f;
-        m_Camera.MovementSpeed =  2.5f;
-        m_Camera.MouseSensitivity =  0.1f;
-        m_Camera.freezeY = false;
-        m_Camera.invertMouse = false;
-        m_Camera.Zoom =  45.0f;
 
-        m_Camera.Position = glm::vec3(0.0f, 0.0f, 3.0f);
-        m_Camera.Up = glm::vec3(0.0f, 1.0f, 0.0f);
-        m_Camera.Front = glm::vec3(0.0f, 0.0f, -1.0f);
+        Camera* cam = Camera::GetInstance();
+        cam->Yaw = -90.0f;
+        cam->Pitch =  0.0f;
+        cam->MovementSpeed =  2.5f;
+        cam->MouseSensitivity =  0.1f;
+        cam->freezeY = false;
+        cam->invertMouse = false;
+        cam->Zoom =  45.0f;
+
+        cam->Position = glm::vec3(0.0f, 0.0f, 3.0f);
+        cam->Up = glm::vec3(0.0f, 1.0f, 0.0f);
+        cam->Front = glm::vec3(0.0f, 0.0f, -1.0f);
 
         m_View = glm::translate(m_View, glm::vec3(0.0f, 0.0f, 3.0f));
         m_Projection = glm::perspective(glm::radians(45.0f), (float)m_Width/m_Height, 0.1f, 100.0f);

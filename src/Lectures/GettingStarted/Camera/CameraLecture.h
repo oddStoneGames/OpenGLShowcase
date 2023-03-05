@@ -1,6 +1,5 @@
 // Link -> https://www.learnopengl.com/Getting-started/Camera
 
-#include "Camera.h"
 #include "../Shader/Shader.h"
 #include "../../../Lectures.h"
 #include "../../../../vendor/glad/include/glad.h"
@@ -15,13 +14,10 @@ namespace GettingStarted
         virtual void OpenLecture() override;
         virtual void RenderLecture(bool settingsVisible, int width, int height) override;
         virtual void CloseLecture() override;
-        /// @brief Retursn the Camera of this lecture.
-        Camera& GetCamera() { return m_Camera; }
     private:
         void LoadTexture(const char* texturePath);
         void Reset(int width, int height);
     private:
-        Camera m_Camera;
         Shader m_Shader;
         uint32_t m_TextureID;
         uint32_t m_VAO, m_VBO;

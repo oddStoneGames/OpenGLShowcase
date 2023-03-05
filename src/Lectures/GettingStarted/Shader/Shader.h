@@ -107,13 +107,25 @@ namespace GettingStarted
         {
             glUniform2f(glGetUniformLocation(ID, name.c_str()), value1, value2);
         }
+        void SetFloat2(const std::string& name, glm::vec2 vec) const
+        {
+            glUniform2f(glGetUniformLocation(ID, name.c_str()), vec.x, vec.y);
+        }
         void SetFloat3(const std::string &name, float value1, float value2, float value3) const
         {
             glUniform3f(glGetUniformLocation(ID, name.c_str()), value1, value2, value3);
         }
+        void SetFloat3(const std::string& name, glm::vec3 vec) const
+        {
+            glUniform3f(glGetUniformLocation(ID, name.c_str()), vec.x, vec.y, vec.z);
+        }
         void SetFloat4(const std::string &name, float value1, float value2, float value3, float value4) const
         {
             glUniform4f(glGetUniformLocation(ID, name.c_str()), value1, value2, value3, value4);
+        }
+        void SetFloat4(const std::string& name, glm::vec4 vec) const
+        {
+            glUniform4f(glGetUniformLocation(ID, name.c_str()), vec.x, vec.y, vec.z, vec.w);
         }
         void SetMat2(const std::string &name, const glm::mat2 &mat2) const
         {

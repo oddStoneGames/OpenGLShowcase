@@ -5,6 +5,7 @@
 #include "../../../../vendor/glm/glm.hpp"
 #include "../../../../vendor/glm/gtc/matrix_transform.hpp"
 
+#include <memory>
 #include <vector>
 
 namespace GettingStarted
@@ -29,6 +30,16 @@ namespace GettingStarted
     class Camera
     {
     public:
+
+        // Singleton for Camera.
+        static Camera* GetInstance()
+        {
+            if (s_Instance == nullptr)
+                s_Instance = std::make_unique<Camera>();
+
+            return s_Instance.get();
+        }
+
         // camera Attributes
         glm::vec3 Position;
         glm::vec3 Front;
@@ -63,6 +74,8 @@ namespace GettingStarted
             Pitch = pitch;
             updateCameraVectors();
         }
+
+        ~Camera() {}
 
         // returns the view matrix calculated using Euler Angles and the LookAt Matrix
         glm::mat4 GetViewMatrix()
@@ -139,7 +152,8 @@ namespace GettingStarted
             Right = glm::normalize(glm::cross(Front, WorldUp));  // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
             Up    = glm::normalize(glm::cross(Right, Front));
         }
+    private:
+        static std::unique_ptr<Camera> s_Instance;
     };
-
 }
 #endif
