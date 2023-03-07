@@ -114,7 +114,7 @@ namespace GettingStarted
         m_View = glm::mat4(1.0f);
         m_Projection = glm::mat4(1.0f);
         
-        float aspect = m_Width/m_Height;
+        float aspect = (float)m_Width / (float)m_Height;
         m_Projection = strcmp(m_CurrentProjectionType, "Orthographic") == 0 ? 
                         glm::ortho(-aspect, aspect, -1.0f, 1.0f, m_Near, m_Far) :
                         glm::perspective(glm::radians(m_Fov), aspect, m_Near, m_Far);
@@ -227,6 +227,6 @@ namespace GettingStarted
         m_View = glm::translate(m_View, m_ViewPosition);
 
         m_Projection = glm::mat4(1.0f);
-        m_Projection = glm::perspective(glm::radians(m_Fov), m_Width/m_Height, m_Near, m_Far);
+        m_Projection = glm::perspective(glm::radians(m_Fov), (float)m_Width / (float)m_Height, m_Near, m_Far);
     }
 }

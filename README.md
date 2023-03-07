@@ -22,6 +22,7 @@ cmake -S . -B ./bin
 ```  
 
 ## Snapshots  
+![Alt text](/snapshots/4.png)
 ![Alt text](/snapshots/3.png)
 ![Alt text](/snapshots/2.png)  
 ![Alt text](/snapshots/1.png)

@@ -18,6 +18,7 @@
 #include "Lectures/GettingStarted/Camera/CameraLecture.h"
 
 #include "Lectures/Lighting/Colors/ColorLecture.h"
+#include "Lectures/Lighting/BasicLighting/BasicLighting.h"
 
 class ShowcaseApplication
 {

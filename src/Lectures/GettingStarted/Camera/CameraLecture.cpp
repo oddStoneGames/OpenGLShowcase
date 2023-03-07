@@ -88,7 +88,7 @@ namespace GettingStarted
         m_Projection = glm::mat4(1.0f);
         m_Width = width;
         m_Height = height;
-        float aspect = m_Width/m_Height;
+        float aspect = (float)m_Width / (float)m_Height;
 
         m_Projection = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
 
@@ -188,6 +188,6 @@ namespace GettingStarted
         cam->Front = glm::vec3(0.0f, 0.0f, -1.0f);
 
         m_View = glm::translate(m_View, glm::vec3(0.0f, 0.0f, 3.0f));
-        m_Projection = glm::perspective(glm::radians(45.0f), (float)m_Width/m_Height, 0.1f, 100.0f);
+        m_Projection = glm::perspective(glm::radians(45.0f), (float)m_Width/(float)m_Height, 0.1f, 100.0f);
     }
 }
