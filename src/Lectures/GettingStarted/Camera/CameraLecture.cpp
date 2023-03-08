@@ -1,7 +1,6 @@
 #include "CameraLecture.h"
 #include "Camera.h"
 #include "../../../../vendor/glm/gtc/matrix_transform.hpp"
-#include <string>
 #include <iostream>
 #include <stb_image.h>
 

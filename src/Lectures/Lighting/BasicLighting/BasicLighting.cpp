@@ -1,9 +1,6 @@
 #include "BasicLighting.h"
 #include "../../GettingStarted/Camera/Camera.h"
 #include "../../../../vendor/glm/gtc/matrix_transform.hpp"
-#include <string>
-#include <iostream>
-#include <stb_image.h>
 
 namespace Lighting
 {
