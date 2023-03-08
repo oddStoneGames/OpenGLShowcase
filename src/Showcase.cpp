@@ -22,6 +22,7 @@ void ShowcaseApplication::Run()
 
     Lectures::m_Instance->m_Lectures.push_back(new Lighting::ColorLecture(w, h));
     Lectures::m_Instance->m_Lectures.push_back(new Lighting::BasicLighting(w, h));
+    Lectures::m_Instance->m_Lectures.push_back(new Lighting::Materials(w, h));
     // Main Render Loop.        
     RenderLoop();
     // Free the memory allocations.

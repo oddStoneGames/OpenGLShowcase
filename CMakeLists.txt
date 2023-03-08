@@ -50,7 +50,8 @@ set(SOURCE_FILES    src/Showcase.cpp src/Showcase.h
                     src/Lectures/GettingStarted/Camera/CameraLecture.cpp src/Lectures/GettingStarted/Camera/CameraLecture.h
 
                     src/Lectures/Lighting/Colors/ColorLecture.cpp src/Lectures/Lighting/Colors/ColorLecture.h
-                    src/Lectures/Lighting/BasicLighting/BasicLighting.cpp src/Lectures/Lighting/BasicLighting/BasicLighting.h)
+                    src/Lectures/Lighting/BasicLighting/BasicLighting.cpp src/Lectures/Lighting/BasicLighting/BasicLighting.h
+                    src/Lectures/Lighting/Materials/Materials.cpp src/Lectures/Lighting/Materials/Materials.h)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 # Set this project as startup project

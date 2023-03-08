@@ -47,6 +47,7 @@ namespace Lighting
         m_LightShader.SetMat4("u_Model", m_Model);
         m_LightShader.SetMat4("u_View", m_View);
         m_LightShader.SetMat4("u_Projection", m_Projection);
+        m_LightShader.SetFloat3("u_LightColor", m_LightColor);
         GettingStarted::Shader::Unbind();
 
         m_CubeShader.Use();
@@ -97,6 +98,7 @@ namespace Lighting
         m_LightShader.SetMat4("u_Model", m_Model);
         m_LightShader.SetMat4("u_View", m_View);
         m_LightShader.SetMat4("u_Projection", m_Projection);
+        m_LightShader.SetFloat3("u_LightColor", m_LightColor);
 
         // Bind VAO.
         glBindVertexArray(m_VAO);
