@@ -1,4 +1,4 @@
-// Link -> https://www.learnopengl.com/Lighting/Light-casters
+// Link -> https://www.learnopengl.com/Lighting/Multiple-lights
 
 #include "../../GettingStarted/Shader/Shader.h"
 #include "../../../Lectures.h"
@@ -7,10 +7,10 @@
 
 namespace Lighting
 {
-    class LightCasters : public Lecture
+    class MultipleLights : public Lecture
     {
     public:
-        LightCasters(int width, int height);
+        MultipleLights(int width, int height);
         virtual void OpenLecture() override;
         virtual void RenderLecture(bool settingsVisible, int width, int height) override;
         virtual void CloseLecture() override;
@@ -38,10 +38,7 @@ namespace Lighting
 
             Light() : position(0.0f), direction(0.0f), ambient(0.0f), diffuse(0.0f), specular(0.0f),
                 constant(1.0f), linear(0.0f), quadratic(0.0f), cutOff(0.0f), outerCutOff(0.0f) {}
-        }m_Light;
-
-        const char* p_LightTypes[3] = { "Directional", "Point", "Spot" };
-        const char* m_CurrentLightType = "Directional";
+        }m_DirectionalLight, m_PointLights[2], m_SpotLight;
 
         uint32_t m_DiffuseTextureID, m_SpecularTextureID, m_EmissionTextureID;
 
@@ -96,6 +93,13 @@ namespace Lighting
              0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
             -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
             -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
+        };
+
+        glm::vec3 m_LightCubePositions[3] =
+        {
+            glm::vec3(2.0f,  0.0f,  0.0f),  // Point Light
+            glm::vec3(-4.0f, -2.0f, 0.0f), // Point Light
+            glm::vec3(2.0f,  5.0f, -13.0f)     // Spot Light
         };
 
         // Positions of Cubes

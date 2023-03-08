@@ -22,6 +22,7 @@
 #include "Lectures/Lighting/Materials/Materials.h"
 #include "Lectures/Lighting/LightingMaps/LightingMaps.h"
 #include "Lectures/Lighting/LightCasters/LightCasters.h"
+#include "Lectures/Lighting/MultipleLights/MultipleLights.h"
 
 class ShowcaseApplication
 {
