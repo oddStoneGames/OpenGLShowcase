@@ -223,7 +223,6 @@ namespace Lighting
         ofn.lpstrDefExt = "";
 
         std::string fileNameStr;
-        std::cout << "Called!\n";
         if (GetOpenFileName(&ofn))
         {
             fileNameStr = filename;
