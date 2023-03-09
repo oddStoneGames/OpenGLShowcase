@@ -1,6 +1,7 @@
 #Directories
 .vs/
 bin/
+build/
 CMakeFiles/
 Debug/
 MinSizeRel/
