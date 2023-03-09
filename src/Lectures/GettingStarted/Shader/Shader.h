@@ -91,43 +91,43 @@ namespace GettingStarted
         }
 
         // Utility uniform functions
-        void SetBool(const std::string &name, bool value) const
+        void SetBool(const std::string &name, const bool value) const
         {
             glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
         }
-        void SetUInt(const std::string& name, unsigned int value) const
+        void SetUInt(const std::string& name, const unsigned int value) const
         {
             glUniform1ui(glGetUniformLocation(ID, name.c_str()), value);
         }
-        void SetInt(const std::string &name, int value) const
+        void SetInt(const std::string &name, const int value) const
         {
             glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
         }
-        void SetFloat(const std::string &name, float value) const
+        void SetFloat(const std::string &name, const float value) const
         {
             glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
         }
-        void SetFloat2(const std::string &name, float value1, float value2) const
+        void SetFloat2(const std::string &name, const float value1, const float value2) const
         {
             glUniform2f(glGetUniformLocation(ID, name.c_str()), value1, value2);
         }
-        void SetFloat2(const std::string& name, glm::vec2 vec) const
+        void SetFloat2(const std::string& name, const glm::vec2 &vec) const
         {
             glUniform2f(glGetUniformLocation(ID, name.c_str()), vec.x, vec.y);
         }
-        void SetFloat3(const std::string &name, float value1, float value2, float value3) const
+        void SetFloat3(const std::string &name, const float value1, const float value2, const float value3) const
         {
             glUniform3f(glGetUniformLocation(ID, name.c_str()), value1, value2, value3);
         }
-        void SetFloat3(const std::string& name, glm::vec3 vec) const
+        void SetFloat3(const std::string& name, const glm::vec3 &vec) const
         {
             glUniform3f(glGetUniformLocation(ID, name.c_str()), vec.x, vec.y, vec.z);
         }
-        void SetFloat4(const std::string &name, float value1, float value2, float value3, float value4) const
+        void SetFloat4(const std::string &name, const float value1, const float value2, const float value3, const float value4) const
         {
             glUniform4f(glGetUniformLocation(ID, name.c_str()), value1, value2, value3, value4);
         }
-        void SetFloat4(const std::string& name, glm::vec4 vec) const
+        void SetFloat4(const std::string& name, const glm::vec4 &vec) const
         {
             glUniform4f(glGetUniformLocation(ID, name.c_str()), vec.x, vec.y, vec.z, vec.w);
         }
