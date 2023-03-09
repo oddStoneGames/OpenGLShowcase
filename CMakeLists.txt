@@ -29,6 +29,10 @@ list(APPEND INCLUDES vendor/stb)
 # GLM
 list(APPEND INCLUDES vendor/glm)
 
+# ASSIMP
+add_subdirectory(vendor/assimp)
+list(APPEND LIBS assimp)
+
 # Add extra libraries based on the operating system.
 if(WIN32)
     list(APPEND gdi32 user32)
