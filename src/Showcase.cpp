@@ -27,6 +27,8 @@ void ShowcaseApplication::Run()
     Lectures::m_Instance->m_Lectures.push_back(new Lighting::LightCasters(w, h));
     Lectures::m_Instance->m_Lectures.push_back(new Lighting::MultipleLights(w, h));
 
+    Lectures::m_Instance->m_Lectures.push_back(new ModelLoading::ModelLoadingLecture(w, h));
+
     // Main Render Loop.        
     RenderLoop();
     // Free the memory allocations.

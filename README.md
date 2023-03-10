@@ -84,3 +84,6 @@ This project has some third-party dependencies, each of which may have independe
 - [glm](https://github.com/g-truc/glm): OpenGL Mathematics
 - [dear imgui](https://github.com/ocornut/imgui): Immediate Mode Graphical User Interface
 - [stb](https://github.com/nothings/stb): Single-file public domain (or MIT licensed) libraries
+
+All the images and models included in this project are made by me and are free to use.
+- [Pistol Model](https://free3d.com/3d-model/beretta-pistol-459996.html)

@@ -7,6 +7,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 project(OpenGL-Showcase)
 
 # OPENGL
+set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
 list(APPEND INCLUDES ${OPENGL_INCLUDE_DIR})
 list(APPEND LIBS ${OPENGL_LIBRARIES})
@@ -30,6 +31,8 @@ list(APPEND INCLUDES vendor/stb)
 list(APPEND INCLUDES vendor/glm)
 
 # ASSIMP
+SET(BUILD_SHARED_LIBS OFF)
+SET(ASSIMP_INSTALL OFF)
 add_subdirectory(vendor/assimp)
 list(APPEND LIBS assimp)
 
@@ -58,7 +61,9 @@ set(SOURCE_FILES    src/Showcase.cpp src/Showcase.h
                     src/Lectures/Lighting/Materials/Materials.cpp src/Lectures/Lighting/Materials/Materials.h
                     src/Lectures/Lighting/LightingMaps/LightingMaps.cpp src/Lectures/Lighting/LightingMaps/LightingMaps.h
                     src/Lectures/Lighting/LightCasters/LightCasters.cpp src/Lectures/Lighting/LightCasters/LightCasters.h
-                    src/Lectures/Lighting/MultipleLights/MultipleLights.cpp src/Lectures/Lighting/MultipleLights/MultipleLights.h)
+                    src/Lectures/Lighting/MultipleLights/MultipleLights.cpp src/Lectures/Lighting/MultipleLights/MultipleLights.h
+
+                    src/Lectures/ModelLoading/ModelLoadingLecture.cpp src/Lectures/ModelLoading/ModelLoadingLecture.h)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 # Set this project as startup project

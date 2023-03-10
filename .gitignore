@@ -14,6 +14,9 @@ x64/
 **.vcxproj
 **.filters
 **.sln
+**.dll
+**.lib
+**.pdb
 **.user
 **.cmake
 CMakeCache.txt

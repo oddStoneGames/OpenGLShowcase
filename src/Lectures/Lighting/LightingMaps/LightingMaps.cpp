@@ -126,7 +126,7 @@ namespace Lighting
             ImGui::SameLine();
             if (ImGui::Button("Choose Emission Texture")) ChooseCustomTexture(m_EmissionTextureID);
 
-            ImGui::DragFloat(LabelPrefix("Shininess: ").c_str(), &m_MaterialShininess, 0.05f, 0.0f, 1000.0f, "%.01f");
+            ImGui::DragFloat(LabelPrefix("Shininess: ").c_str(), &m_MaterialShininess, 0.05f, 0.0f, 1000.0f, "%.2f");
             ImGui::NewLine();
 
             if(DrawButtonCentered("Reset")) Reset(width, height);
@@ -238,7 +238,7 @@ namespace Lighting
         filePath.replace(filePath.length() - 1, 1, '\0', '\\');
         // Load Image.
         LoadTexture(filePath.c_str(), textureID);
-#endif // WIN32
+#endif
     }
 
     void LightingMaps::LoadTexture(const char* texturePath, uint32_t textureID)

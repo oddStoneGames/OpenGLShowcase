@@ -101,7 +101,7 @@ namespace Lighting
             ImGui::ColorEdit3(LabelPrefix("Ambient: ").c_str(), &m_MaterialAmbientColor[0]);
             ImGui::ColorEdit3(LabelPrefix("Diffuse: ").c_str(), &m_MaterialDiffuseColor[0]);
             ImGui::ColorEdit3(LabelPrefix("Specular: ").c_str(), &m_MaterialSpecularColor[0]);
-            ImGui::DragFloat(LabelPrefix("Shininess: ").c_str(), &m_MaterialShininess, 0.05f, 0.0f, 1000.0f, "%.01f");
+            ImGui::DragFloat(LabelPrefix("Shininess: ").c_str(), &m_MaterialShininess, 0.05f, 0.0f, 1000.0f, "%.2f");
             ImGui::NewLine();
 
             if(DrawButtonCentered("Reset")) Reset(width, height);
