@@ -99,8 +99,10 @@ namespace ModelLoading
             if (DrawButtonCentered("Choose Custom Model"))
                 ChooseCustomModel();
 
+            ImGui::NewLine();
             ImGui::TextWrapped("We make an assumption that the textures are in the same directory where the model is, if not then textures will not be loaded.");
             
+            ImGui::NewLine();
             ImGui::DragFloat3(LabelPrefix("Position: ").c_str(), &m_ModelPosition[0], 0.5f, -1000.0f, 1000.0f, "%.1f");
             ImGui::DragFloat3(LabelPrefix("Rotation: ").c_str(), &m_ModelRotation[0], 0.5f, -360.0f, 360.0f, "%.1f");
             ImGui::DragFloat3(LabelPrefix("Scale: ").c_str(), &m_ModelScale[0], 0.01f, -5.0f, 5.0f, "%.2f");
