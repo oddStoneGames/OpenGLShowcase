@@ -41,7 +41,7 @@ namespace GettingStarted
         // Generate Texture
         glGenTextures(1, &m_TextureID);        
         // Reset Options.
-        Reset(m_Width, m_Height);
+        Reset((int)m_Width, (int)m_Height);
 
         // Set Uniforms.
         m_Shader.Use();
@@ -213,8 +213,8 @@ namespace GettingStarted
         m_CurrentProjectionType = "Perspective";
 
         m_Fov = 45.0f;
-        m_Width = width;
-        m_Height = height;
+        m_Width = (float)width;
+        m_Height = (float)height;
         m_Near = 0.1f;
         m_Far = 100.0f;
 
@@ -226,6 +226,6 @@ namespace GettingStarted
         m_View = glm::translate(m_View, m_ViewPosition);
 
         m_Projection = glm::mat4(1.0f);
-        m_Projection = glm::perspective(glm::radians(m_Fov), (float)m_Width / (float)m_Height, m_Near, m_Far);
+        m_Projection = glm::perspective(glm::radians(m_Fov), m_Width / m_Height, m_Near, m_Far);
     }
 }

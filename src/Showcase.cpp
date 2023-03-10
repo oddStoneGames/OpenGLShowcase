@@ -344,56 +344,54 @@ void ShowcaseApplication::ImGuiRender()
                 ImGui::EndMenu();
             }
 
-            if (ImGui::BeginMenu("Model Loading"))
-            {
-                if (ImGui::MenuItem("Assimp"))              { m_CurrentLectureIndex = 13; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); } 
-                if (ImGui::MenuItem("Mesh"))                { m_CurrentLectureIndex = 14; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("Model"))               { m_CurrentLectureIndex = 15; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                ImGui::EndMenu();
+            if (ImGui::MenuItem("Model Loading")) 
+            { 
+                m_CurrentLectureIndex = 13;
+                Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex);
             }
 
             if (ImGui::BeginMenu("Advanced OpenGL"))
             {
-                if (ImGui::MenuItem("Depth testing"))       { m_CurrentLectureIndex = 16; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("Stencil testing"))     { m_CurrentLectureIndex = 17; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("Blending"))            { m_CurrentLectureIndex = 18; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("Face culling"))        { m_CurrentLectureIndex = 19; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("Framebuffers"))        { m_CurrentLectureIndex = 20; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("Cubemaps"))            { m_CurrentLectureIndex = 21; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("Advanced Data"))       { m_CurrentLectureIndex = 22; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("Advanced GLSL"))       { m_CurrentLectureIndex = 23; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("Geometry Shader"))     { m_CurrentLectureIndex = 24; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("Instancing"))          { m_CurrentLectureIndex = 25; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("Anti Aliasing"))       { m_CurrentLectureIndex = 26; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Depth testing"))       { m_CurrentLectureIndex = 14; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Stencil testing"))     { m_CurrentLectureIndex = 15; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Blending"))            { m_CurrentLectureIndex = 16; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Face culling"))        { m_CurrentLectureIndex = 17; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Framebuffers"))        { m_CurrentLectureIndex = 18; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Cubemaps"))            { m_CurrentLectureIndex = 19; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Advanced Data"))       { m_CurrentLectureIndex = 20; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Advanced GLSL"))       { m_CurrentLectureIndex = 21; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Geometry Shader"))     { m_CurrentLectureIndex = 22; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Instancing"))          { m_CurrentLectureIndex = 23; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Anti Aliasing"))       { m_CurrentLectureIndex = 24; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                 ImGui::EndMenu();
             }
 
             if (ImGui::BeginMenu("Advanced Lighting"))
             {
-                if (ImGui::MenuItem("Advanced lighting"))   { m_CurrentLectureIndex = 27; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); } 
-                if (ImGui::MenuItem("Gamma Correction"))    { m_CurrentLectureIndex = 28; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Advanced lighting"))   { m_CurrentLectureIndex = 25; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); } 
+                if (ImGui::MenuItem("Gamma Correction"))    { m_CurrentLectureIndex = 26; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                 if (ImGui::BeginMenu("Shadows")) 
                 {
-                    if (ImGui::MenuItem("Shadow Mapping"))  { m_CurrentLectureIndex = 29; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); } 
-                    if (ImGui::MenuItem("Point Shadows"))   { m_CurrentLectureIndex = 30; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                    if (ImGui::MenuItem("Shadow Mapping"))  { m_CurrentLectureIndex = 27; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); } 
+                    if (ImGui::MenuItem("Point Shadows"))   { m_CurrentLectureIndex = 28; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                     ImGui::EndMenu();
                 }
-                if (ImGui::MenuItem("Normal Mapping"))      { m_CurrentLectureIndex = 31; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("Parallax Mapping"))    { m_CurrentLectureIndex = 32; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("HDR"))                 { m_CurrentLectureIndex = 33; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("Bloom"))               { m_CurrentLectureIndex = 34; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("Deferred Shading"))    { m_CurrentLectureIndex = 35; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("SSAO"))                { m_CurrentLectureIndex = 36; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Normal Mapping"))      { m_CurrentLectureIndex = 29; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Parallax Mapping"))    { m_CurrentLectureIndex = 30; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("HDR"))                 { m_CurrentLectureIndex = 31; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Bloom"))               { m_CurrentLectureIndex = 32; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Deferred Shading"))    { m_CurrentLectureIndex = 33; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("SSAO"))                { m_CurrentLectureIndex = 34; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                 ImGui::EndMenu();
             }
 
             if (ImGui::BeginMenu("PBR"))
             {
-                if (ImGui::MenuItem("Lighting"))            { m_CurrentLectureIndex = 37; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Lighting"))            { m_CurrentLectureIndex = 35; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                 if (ImGui::BeginMenu("IBL")) 
                 {
-                    if (ImGui::MenuItem("Diffuse irradiance"))  { m_CurrentLectureIndex = 38; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                    if (ImGui::MenuItem("Specular IBL"))        { m_CurrentLectureIndex = 39; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                    if (ImGui::MenuItem("Diffuse irradiance"))  { m_CurrentLectureIndex = 36; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                    if (ImGui::MenuItem("Specular IBL"))        { m_CurrentLectureIndex = 37; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                     ImGui::EndMenu();
                 }
                 ImGui::EndMenu();
@@ -401,9 +399,9 @@ void ShowcaseApplication::ImGuiRender()
 
             if (ImGui::BeginMenu("In Practice"))
             {
-                if (ImGui::MenuItem("Debugging"))           { m_CurrentLectureIndex = 40; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("Text Rendering"))      { m_CurrentLectureIndex = 41; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                if (ImGui::MenuItem("2D Game"))             { m_CurrentLectureIndex = 42; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Debugging"))           { m_CurrentLectureIndex = 38; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("Text Rendering"))      { m_CurrentLectureIndex = 39; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                if (ImGui::MenuItem("2D Game"))             { m_CurrentLectureIndex = 40; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                 ImGui::EndMenu();
             }
 
@@ -413,40 +411,40 @@ void ShowcaseApplication::ImGuiRender()
                 {
                     if (ImGui::BeginMenu("OIT")) 
                     {
-                        if (ImGui::MenuItem("Introduction"))    { m_CurrentLectureIndex = 43; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); } 
-                        if (ImGui::MenuItem("Weight Blended"))  { m_CurrentLectureIndex = 44; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                        if (ImGui::MenuItem("Introduction"))    { m_CurrentLectureIndex = 41; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); } 
+                        if (ImGui::MenuItem("Weight Blended"))  { m_CurrentLectureIndex = 42; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                         ImGui::EndMenu();
                     }
-                    if (ImGui::MenuItem("Skeletal Animation"))  { m_CurrentLectureIndex = 45; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                    if (ImGui::MenuItem("Skeletal Animation"))  { m_CurrentLectureIndex = 43; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                     ImGui::EndMenu();
                 }
                 if (ImGui::BeginMenu("2021")) 
                 {
-                    if (ImGui::MenuItem("CSM"))                 { m_CurrentLectureIndex = 46; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                    if (ImGui::MenuItem("CSM"))                 { m_CurrentLectureIndex = 44; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                     if (ImGui::BeginMenu("Scene")) 
                     {
-                        if (ImGui::MenuItem("Scene Graph"))     { m_CurrentLectureIndex = 47; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                        if (ImGui::MenuItem("Frustum Culling")) { m_CurrentLectureIndex = 48; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                        if (ImGui::MenuItem("Scene Graph"))     { m_CurrentLectureIndex = 45; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                        if (ImGui::MenuItem("Frustum Culling")) { m_CurrentLectureIndex = 46; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                         ImGui::EndMenu();
                     }
                     if (ImGui::BeginMenu("Tessellation")) 
                     {
-                        if (ImGui::MenuItem("Height map"))      { m_CurrentLectureIndex = 49; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                        if (ImGui::MenuItem("Tessellation"))    { m_CurrentLectureIndex = 50; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                        if (ImGui::MenuItem("Height map"))      { m_CurrentLectureIndex = 47; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                        if (ImGui::MenuItem("Tessellation"))    { m_CurrentLectureIndex = 48; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                         ImGui::EndMenu();
                     }
-                    if (ImGui::MenuItem("DSA"))                 { m_CurrentLectureIndex = 51; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                    if (ImGui::MenuItem("DSA"))                 { m_CurrentLectureIndex = 49; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                     ImGui::EndMenu();
                 }
                 if (ImGui::BeginMenu("2022")) 
                 {
                     if (ImGui::BeginMenu("Compute Shaders")) 
                     {
-                        if (ImGui::MenuItem("Introduction"))    { m_CurrentLectureIndex = 52; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                        if (ImGui::MenuItem("Introduction"))    { m_CurrentLectureIndex = 50; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                         ImGui::EndMenu();
                     }
-                    if (ImGui::MenuItem("Phys. Based Bloom"))   { m_CurrentLectureIndex = 53; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
-                    if (ImGui::MenuItem("Area Lights"))         { m_CurrentLectureIndex = 54; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                    if (ImGui::MenuItem("Phys. Based Bloom"))   { m_CurrentLectureIndex = 51; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
+                    if (ImGui::MenuItem("Area Lights"))         { m_CurrentLectureIndex = 52; Lectures::m_Instance->OpenLecture(m_CurrentLectureIndex); }
                     ImGui::EndMenu();
                 }
                 ImGui::EndMenu();
@@ -515,8 +513,8 @@ void ShowcaseApplication::MouseMoveCallback(GLFWwindow *window, double xpos, dou
     {
         if (m_FirstMouse)
         {
-            m_LastX = xpos;
-            m_LastY = ypos;
+            m_LastX = xposF;
+            m_LastY = yposF;
             m_FirstMouse = false;
         }
 

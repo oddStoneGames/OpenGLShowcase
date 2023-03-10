@@ -61,7 +61,7 @@ namespace GettingStarted
         if(m_Animate)
         {
 
-            float timeValue = glfwGetTime();
+            float timeValue = (float)glfwGetTime();
             float redValue = cos(timeValue + 0.1f) / 2.0f + 0.5f;
             float greenValue = sin(timeValue + 0.1f) / 2.0f + 0.5f;
             float blueValue = cos(timeValue + 0.1f) - sin(timeValue + 0.1f);

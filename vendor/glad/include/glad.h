@@ -19,6 +19,11 @@
         https://glad.dav1d.de/#profile=core&language=c&specification=gl&loader=on&api=gl%3D3.3
 */
 
+// HACK: if we include Windows.h in our project anywhere on windows, 
+// then it throws APIENTRY redefinition warning, to suppress that we are including Windows.h here.
+#if _WIN32
+#include <Windows.h>
+#endif
 
 #ifndef __glad_h_
 #define __glad_h_
