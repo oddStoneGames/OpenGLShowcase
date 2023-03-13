@@ -31,8 +31,8 @@ list(APPEND INCLUDES vendor/stb)
 list(APPEND INCLUDES vendor/glm)
 
 # ASSIMP
-SET(BUILD_SHARED_LIBS OFF)
-SET(ASSIMP_INSTALL OFF)
+SET(BUILD_SHARED_LIBS OFF CACHE BOOL "Build package with shared libraries.")
+SET(ASSIMP_INSTALL OFF CACHE BOOL "Disable this if you want to use assimp as a submodule.")
 add_subdirectory(vendor/assimp)
 list(APPEND LIBS assimp)
 

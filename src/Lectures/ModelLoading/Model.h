@@ -151,7 +151,6 @@ namespace ModelLoading
             // diffuse: texture_diffuseN
             // specular: texture_specularN
             // normal: texture_normalN
-            std::cout << material->GetName().C_Str() << "\n";
             // 1. diffuse maps
             std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
             textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());

@@ -144,8 +144,8 @@ namespace ModelLoading
 
         if (m_RotateLightSphere)
         {
-            m_PointLight.position.x = sin(glfwGetTime()) * m_LightSphereRotationRadius;
-            m_PointLight.position.z = cos(glfwGetTime()) * m_LightSphereRotationRadius;
+            m_PointLight.position.x = (float)sin(glfwGetTime()) * m_LightSphereRotationRadius;
+            m_PointLight.position.z = (float)cos(glfwGetTime()) * m_LightSphereRotationRadius;
         }
 
         m_LightSphere_ModelMatrix = glm::mat4(1.0f);
