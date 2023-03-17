@@ -25,6 +25,7 @@
 #include "Lectures/Lighting/MultipleLights/MultipleLights.h"
 #include "Lectures/ModelLoading/ModelLoadingLecture.h"
 
+#include "Lectures/AdvancedOpenGL/DepthTesting/DepthTesting.h"
 class ShowcaseApplication
 {
 public:

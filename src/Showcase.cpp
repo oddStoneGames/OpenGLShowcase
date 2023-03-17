@@ -29,6 +29,8 @@ void ShowcaseApplication::Run()
 
     Lectures::m_Instance->m_Lectures.push_back(new ModelLoading::ModelLoadingLecture(w, h));
 
+    Lectures::m_Instance->m_Lectures.push_back(new AdvancedOpenGL::DepthTesting(w, h));
+
     // Main Render Loop.        
     RenderLoop();
     // Free the memory allocations.
@@ -84,6 +86,9 @@ bool ShowcaseApplication::Init()
     stbi_image_free(icon[0].pixels);
 
     glViewport(0, 0, WIDTH, HEIGHT);
+
+    // Enable Vsync
+    glfwSwapInterval(1);
 
     return true;
 }
