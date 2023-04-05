@@ -65,7 +65,8 @@ set(SOURCE_FILES    src/Showcase.cpp src/Showcase.h
 
                     src/Lectures/ModelLoading/ModelLoadingLecture.cpp src/Lectures/ModelLoading/ModelLoadingLecture.h
 
-                    src/Lectures/AdvancedOpenGL/DepthTesting/DepthTesting.cpp src/Lectures/AdvancedOpenGL/DepthTesting/DepthTesting.h)
+                    src/Lectures/AdvancedOpenGL/DepthTesting/DepthTesting.cpp src/Lectures/AdvancedOpenGL/DepthTesting/DepthTesting.h
+                    src/Lectures/AdvancedOpenGL/StencilTesting/StencilTesting.cpp src/Lectures/AdvancedOpenGL/StencilTesting/StencilTesting.h)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 # Set this project as startup project

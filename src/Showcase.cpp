@@ -30,6 +30,7 @@ void ShowcaseApplication::Run()
     Lectures::m_Instance->m_Lectures.push_back(new ModelLoading::ModelLoadingLecture(w, h));
 
     Lectures::m_Instance->m_Lectures.push_back(new AdvancedOpenGL::DepthTesting(w, h));
+    Lectures::m_Instance->m_Lectures.push_back(new AdvancedOpenGL::StencilTesting(w, h));
 
     // Main Render Loop.        
     RenderLoop();
@@ -281,7 +282,7 @@ void ShowcaseApplication::ImGuiBeginFrame()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 }
 
 /// @brief Renders all the stuff we send to ImGui

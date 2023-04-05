@@ -26,6 +26,8 @@
 #include "Lectures/ModelLoading/ModelLoadingLecture.h"
 
 #include "Lectures/AdvancedOpenGL/DepthTesting/DepthTesting.h"
+#include "Lectures/AdvancedOpenGL/StencilTesting/StencilTesting.h"
+
 class ShowcaseApplication
 {
 public:
@@ -67,18 +69,18 @@ private:
 
     /// @brief Used to get callbacks from GLFW which expects static functions.
     class GLFWCallbackWrapper
-        {
-        public:
-            GLFWCallbackWrapper() = delete;
-            ~GLFWCallbackWrapper() = delete;
+    {
+    public:
+        GLFWCallbackWrapper() = delete;
+        ~GLFWCallbackWrapper() = delete;
 
-            static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
-            static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-            static void MouseMoveCallback(GLFWwindow* window, double xpos, double ypos);
-            static void MouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
-            static void ResizeCallback(GLFWwindow* window, int width, int height);
-            static void SetApplication(ShowcaseApplication *application);
-        private:
-            static ShowcaseApplication* s_application;
-        };
+        static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+        static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+        static void MouseMoveCallback(GLFWwindow* window, double xpos, double ypos);
+        static void MouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
+        static void ResizeCallback(GLFWwindow* window, int width, int height);
+        static void SetApplication(ShowcaseApplication *application);
+    private:
+        static ShowcaseApplication* s_application;
+    };
 };
