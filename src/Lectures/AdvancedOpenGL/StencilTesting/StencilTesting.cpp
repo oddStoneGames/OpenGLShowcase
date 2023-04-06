@@ -16,7 +16,7 @@ namespace AdvancedOpenGL
             PROJECT_DIR"/src/Lectures/AdvancedOpenGL/StencilTesting/Shader.frag"),
         m_OutlineShader(PROJECT_DIR"/src/Lectures/AdvancedOpenGL/StencilTesting/Shader.vert",
             PROJECT_DIR"/src/Lectures/AdvancedOpenGL/StencilTesting/OutlineShader.frag"),
-        m_DrawOutline(true), m_OutlineThickness(0.02f), m_OutlineColor(glm::vec3(0.0f))
+        m_DrawOutline(true), m_OutlineThickness(0.02f), m_OutlineColor(glm::vec3(0.0f)), m_Initialized(false)
     {
         m_LectureLink = "https://www.learnopengl.com/Advanced-OpenGL/Stencil-testing";
 
@@ -354,14 +354,19 @@ namespace AdvancedOpenGL
         m_VisualizeDepth = false;
         m_LinearizeDepth = false;
 
-        // Enable Depth & Stencil Testing.
-        glEnable(GL_DEPTH_TEST);
-        glDepthFunc(GL_LESS);
-        glEnable(GL_STENCIL_TEST);
-        glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-        glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+        if (m_Initialized)
+        {
+            // Enable Depth & Stencil Testing only if it is not the constructor calling this Function.
+            glEnable(GL_DEPTH_TEST);
+            glDepthFunc(GL_LESS);
+            glEnable(GL_STENCIL_TEST);
+            glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+            glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+        }
 
         m_View = glm::translate(m_View, glm::vec3(0.0f, 0.0f, 3.0f));
         m_Projection = glm::perspective(glm::radians(45.0f), (float)m_Width/(float)m_Height, 0.1f, 100.0f);
+
+        m_Initialized = true;
     }
 }

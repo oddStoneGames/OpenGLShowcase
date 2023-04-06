@@ -67,10 +67,11 @@ cmake --build build --config Release --target OpenGL-Showcase
 `Step 4.` Run the executable OpenGL-Showcase which is located in the build or build/Release folder.
 
 ## Snapshots  
-![Alt text](/snapshots/4.png)
-![Alt text](/snapshots/3.png)
-![Alt text](/snapshots/2.png)
-![Alt text](/snapshots/1.png)
+![](snapshots/5.png)  
+![](snapshots/4.png)  
+![](snapshots/3.png)  
+![](snapshots/2.png)  
+![](snapshots/1.png)  
 
 ## License 
  

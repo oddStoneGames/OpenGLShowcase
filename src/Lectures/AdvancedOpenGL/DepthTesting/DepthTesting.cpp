@@ -121,7 +121,7 @@ namespace AdvancedOpenGL
                 ImGui::Checkbox(LabelPrefix("Visualize Depth: ").c_str(), &m_VisualizeDepth);
                 ImGui::Checkbox(LabelPrefix("Linearize Depth: ").c_str(), &m_LinearizeDepth);
 
-                // Texture Wrap S
+                // Depth Function
                 if (ImGui::BeginCombo(LabelPrefix("Depth Test Function: ").c_str(), s_CurrentDepthTestFunc))
                 {
                     for (int n = 0; n < IM_ARRAYSIZE(s_DepthTestFuncs); n++)

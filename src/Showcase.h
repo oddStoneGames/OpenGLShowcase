@@ -27,6 +27,7 @@
 
 #include "Lectures/AdvancedOpenGL/DepthTesting/DepthTesting.h"
 #include "Lectures/AdvancedOpenGL/StencilTesting/StencilTesting.h"
+#include "Lectures/AdvancedOpenGL/Blending/Blending.h"
 
 class ShowcaseApplication
 {

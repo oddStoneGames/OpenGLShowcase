@@ -14,7 +14,7 @@ namespace AdvancedOpenGL
         virtual void OpenLecture() override;
         virtual void RenderLecture(bool settingsVisible, int width, int height) override;
         virtual void CloseLecture() override;
-    private:
+    private: 
         void LoadTexture(const char* texturePath, uint32_t textureID);
         void Reset(int width, int height);
     private:
@@ -24,6 +24,7 @@ namespace AdvancedOpenGL
         glm::mat4 m_Model, m_View, m_Projection;
         uint32_t m_Width, m_Height;
         bool m_VisualizeDepth = false, m_LinearizeDepth = false;
+        bool m_Initialized;
 
         struct Light
         {
