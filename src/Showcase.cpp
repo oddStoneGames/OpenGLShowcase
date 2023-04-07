@@ -32,6 +32,7 @@ void ShowcaseApplication::Run()
     Lectures::m_Instance->m_Lectures.push_back(new AdvancedOpenGL::DepthTesting(w, h));
     Lectures::m_Instance->m_Lectures.push_back(new AdvancedOpenGL::StencilTesting(w, h));
     Lectures::m_Instance->m_Lectures.push_back(new AdvancedOpenGL::Blending(w, h));
+    Lectures::m_Instance->m_Lectures.push_back(new AdvancedOpenGL::FaceCulling(w, h));
 
     // Main Render Loop.        
     RenderLoop();
