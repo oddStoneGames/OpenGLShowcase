@@ -31,6 +31,7 @@ namespace AdvancedOpenGL
         uint32_t m_WindowVAO;
         uint32_t m_WindowTextureID;
 
+        bool m_Initialized = false;
         bool m_BlendingEnabled = true;
         const char* s_BlendFuncs[14] = { "GL_ZERO", "GL_ONE", "GL_SRC_COLOR", "GL_ONE_MINUS_SRC_COLOR", "GL_DST_COLOR", "GL_ONE_MINUS_DST_COLOR", "GL_SRC_ALPHA", "GL_ONE_MINUS_SRC_ALPHA",
                                         "GL_DST_ALPHA", "GL_ONE_MINUS_DST_ALPHA", "GL_CONSTANT_COLOR", "GL_ONE_MINUS_CONSTANT_COLOR", "GL_CONSTANT_ALPHA", "GL_ONE_MINUS_CONSTANT_ALPHA" };

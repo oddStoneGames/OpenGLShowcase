@@ -101,7 +101,7 @@ namespace Lighting
         if(settingsVisible)
         {
             // Draw ImGui Settings Menu.
-            ImGui::Begin("Material Lecture");
+            ImGui::Begin("Lighting Maps Lecture");
 
             DrawTextCentered("Light Settings");
             ImGui::NewLine();

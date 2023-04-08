@@ -287,11 +287,15 @@ namespace AdvancedOpenGL
         m_GLBlendColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
         // Enable Blending.
-        glEnable(GL_BLEND);
-        glBlendFunc(m_CurrentBlendingSourceFactor, m_CurrentBlendingDestinationFactor);
-        if (m_GLBlendColorEnabled)
-            glBlendColor(m_GLBlendColor.r, m_GLBlendColor.g, m_GLBlendColor.b, m_GLBlendColor.a);
-        glBlendEquation(m_CurrentBlendEquation);
+        if (m_Initialized)
+        {
+            glEnable(GL_BLEND);
+            glBlendFunc(m_CurrentBlendingSourceFactor, m_CurrentBlendingDestinationFactor);
+            if (m_GLBlendColorEnabled)
+                glBlendColor(m_GLBlendColor.r, m_GLBlendColor.g, m_GLBlendColor.b, m_GLBlendColor.a);
+            glBlendEquation(m_CurrentBlendEquation);
+        }
+        m_Initialized = true;
     }
 
     GLenum Blending::UpdateBlendingFactor(const char* blendFactor)
